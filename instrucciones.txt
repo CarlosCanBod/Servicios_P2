@@ -1,0 +1,64 @@
+(linux, debian 12)
+
+1. Descargar del campus virtual p2data.zip
+	Suponemos que queda en el directorio $HOME/Descargas
+
+2. Descomprimirlo
+	cd $HOME/Descargas
+	unzip p2data
+
+3. Tenemos que crear un entorno virtual python
+	(sudo apt-get update)
+	(sudo apt-get upgrade)
+	(sudo apt-get install python3-venv)
+	python3 -m venv tmp
+	
+4. Activarlo
+	source ./tmp/bin/activate
+
+5. Instalar librerías python necesarias
+	pip install mediapipe
+
+6. Probar
+	cd p2data
+	python ejemplo0.py
+	python ejemplo1.py
+	python ejemplo2.py
+
+7. Instalar librerías python necesarias
+	pip install deepface
+	pip install tf-keras
+
+8. Probar
+	python ejemplo4.py
+
+#
+# errores
+#
+
+si cuando se ejecuta
+
+    python ejemplo0.py
+
+puede verse
+
+    QFontDatabase: Cannot find font directory /home/marcos/usr/docencia/cursos/curso 2025-26/rds/p2/tmp/lib/python3.11/site-packages/cv2/qt/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+
+la solución está en crear el directorio y copiar algunas fuentes
+
+    mkdir -p "/home/marcos/usr/docencia/cursos/curso 2025-26/rds/p2/tmp/lib/python3.11/site-packages/cv2/qt/fonts"
+    cp /usr/share/fonts/truetype/dejavu/*.ttf "/home/marcos/usr/docencia/cursos/curso 2025-26/rds/p2/tmp/lib/python3.11/site-packages/cv2/qt/fonts/"
+
+#
+# documentación
+#
+
+https://developers.google.com/edge/mediapipe/solutions/vision/face_detector/
+https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker/
+https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer/
+
+
+Existe una nota en el campus virtual que es:
+debo probar si pip install 'opencv-python==4.14.0.94' y pip install 'opencv-contrib-python==4.14.0.94' antes de instalar mediapipe nos permite usar el código antiguo
+

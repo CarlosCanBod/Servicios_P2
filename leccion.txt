@@ -1,0 +1,10 @@
+Un robot de servicios trabaja para ayudar a las personas en tareas cotidianas.
+Para interactuar necesita percibir lo que ocurre en su entorno.
+Una cámara permite estimar posiciones y gestos visibles.
+Los puntos de referencia son coordenadas localizadas sobre una imagen.
+Una sola imagen puede ser ambigua: conviene observar señales durante un tiempo.
+Si no podemos medir una señal, debemos reconocer esa incertidumbre.
+Un gestor de estados decide qué respuesta corresponde en cada situación.
+Una petición de descanso suspende la lección hasta una nueva petición.
+Las expresiones faciales son estimaciones y dependen del contexto.
+La interacción mejora cuando las decisiones son comprensibles y previsibles.

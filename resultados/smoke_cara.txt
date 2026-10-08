@@ -1,0 +1,13 @@
+INFO: [environment.cc:36] Creating LiteRT environment with options
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x7796a4003230, name=GPU WebGPU
+INFO: [gpu_registry.cc:113] Statically linked GPU accelerator registered.
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x7796a40035e0, name=CpuAccelerator
+INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.
+INFO: [compiled_model.cc:829] Flatbuffer model initialized directly from incoming litert model.
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+Prueba de cara. q: salir; r: reseleccionar cara. No se graba vídeo.
+WARNING: Logging before InitGoogle() is written to STDERR
+W0000 00:00:1791469608.407967   25357 inference_runner_litert.cc:1090] Input tensor memory is not aligned according to LiteRt's memory alignment requirements. Reallocating memory and copying data.
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x7796a40035e0, name=CpuAccelerator
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x7796a4003230, name=GPU WebGPU
+Registro: resultados/smoke_cara.json

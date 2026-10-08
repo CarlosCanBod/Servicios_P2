@@ -1,0 +1,109 @@
+{
+  "command": [
+    "/home/alejandro/Alejandro/Robotica_Servicios/P2/scripts/probar_detector.py",
+    "cara",
+    "--input",
+    "video.mp4",
+    "--max-seconds",
+    ".5",
+    "--log",
+    "resultados/smoke_cara.json"
+  ],
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.6,
+    "closed_hold_s": 1.0,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "happy_delta": 0.15,
+    "ear_closed": 0.18,
+    "ear_open": 0.22,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "input": "video.mp4",
+  "detector": "cara",
+  "elapsed_s": 0.7385804859995915,
+  "error": null,
+  "manual_observation": null,
+  "samples": [
+    {
+      "time_s": 0.0,
+      "metrics": {
+        "caras": 1,
+        "roll_deg": -0.5287609403776299,
+        "yaw_ratio": -0.03334173812137654,
+        "pitch_ratio": 0.6109627669488289,
+        "frontal": true,
+        "latency_ms": 3.262053000071319
+      }
+    },
+    {
+      "time_s": 0.1,
+      "metrics": {
+        "caras": 1,
+        "roll_deg": 0.5137245887501486,
+        "yaw_ratio": -0.016618298302771044,
+        "pitch_ratio": 0.5962802886378218,
+        "frontal": true,
+        "latency_ms": 2.225035000265052
+      }
+    },
+    {
+      "time_s": 0.2,
+      "metrics": {
+        "caras": 1,
+        "roll_deg": 1.9127503718056948,
+        "yaw_ratio": 0.002409902935930849,
+        "pitch_ratio": 0.6050928789778302,
+        "frontal": true,
+        "latency_ms": 1.9190660004824167
+      }
+    },
+    {
+      "time_s": 0.3333333333333333,
+      "metrics": {
+        "caras": 1,
+        "roll_deg": 3.1362607322647222,
+        "yaw_ratio": -0.02482522010660792,
+        "pitch_ratio": 0.6048877027009585,
+        "frontal": true,
+        "latency_ms": 1.8627210001795902
+      }
+    },
+    {
+      "time_s": 0.43333333333333335,
+      "metrics": {
+        "caras": 1,
+        "roll_deg": 1.006880784909483,
+        "yaw_ratio": -0.04720861073563444,
+        "pitch_ratio": 0.599717691888128,
+        "frontal": true,
+        "latency_ms": 2.1198950007601525
+      }
+    }
+  ]
+}

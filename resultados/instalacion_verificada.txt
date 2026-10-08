@@ -1,0 +1,187 @@
+Requirement already satisfied: absl-py==2.5.0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 1)) (2.5.0)
+Requirement already satisfied: certifi==2026.7.22 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 2)) (2026.7.22)
+Requirement already satisfied: cffi==2.1.1 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 3)) (2.1.1)
+Requirement already satisfied: contourpy==1.4.0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 4)) (1.4.0)
+Requirement already satisfied: cycler==0.12.1 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 5)) (0.12.1)
+Requirement already satisfied: flatbuffers==25.12.19 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 6)) (25.12.19)
+Requirement already satisfied: fonttools==4.66.1 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 7)) (4.66.1)
+Requirement already satisfied: kiwisolver==1.5.1 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 8)) (1.5.1)
+Requirement already satisfied: matplotlib==3.11.2 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 9)) (3.11.2)
+Requirement already satisfied: mediapipe==1.1.0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 10)) (1.1.0)
+Requirement already satisfied: numpy==2.5.3 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 11)) (2.5.3)
+Requirement already satisfied: opencv-contrib-python==4.14.0.94 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 12)) (4.14.0.94)
+Requirement already satisfied: packaging==26.3 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 13)) (26.3)
+Requirement already satisfied: pillow==12.3.0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 14)) (12.3.0)
+Requirement already satisfied: pycparser==3.1 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 15)) (3.1)
+Requirement already satisfied: pyparsing==3.3.3 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 16)) (3.3.3)
+Requirement already satisfied: python-dateutil==2.9.0.post0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 17)) (2.9.0.post0)
+Requirement already satisfied: six==1.17.0 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 18)) (1.17.0)
+Requirement already satisfied: sounddevice==0.5.6 in ./.venv-vision/lib/python3.12/site-packages (from -r requirements-vision.lock.txt (line 19)) (0.5.6)
+Requirement already satisfied: absl-py==2.5.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 1)) (2.5.0)
+Requirement already satisfied: astunparse==1.6.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 2)) (1.6.3)
+Requirement already satisfied: beautifulsoup4==4.15.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 3)) (4.15.0)
+Requirement already satisfied: blinker==1.9.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 4)) (1.9.0)
+Requirement already satisfied: certifi==2026.7.22 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 5)) (2026.7.22)
+Requirement already satisfied: cffi==2.1.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 6)) (2.1.1)
+Requirement already satisfied: charset-normalizer==3.5.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 7)) (3.5.2)
+Requirement already satisfied: click==8.5.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 8)) (8.5.0)
+Requirement already satisfied: cloudpickle==3.1.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 9)) (3.1.2)
+Requirement already satisfied: contourpy==1.4.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 10)) (1.4.0)
+Requirement already satisfied: cycler==0.12.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 11)) (0.12.1)
+Requirement already satisfied: deepface==0.0.101 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 12)) (0.0.101)
+Requirement already satisfied: filelock==4.0.12 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 13)) (4.0.12)
+Requirement already satisfied: fire==0.7.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 14)) (0.7.1)
+Requirement already satisfied: Flask==3.1.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 15)) (3.1.3)
+Requirement already satisfied: flask-cors==6.0.5 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 16)) (6.0.5)
+Requirement already satisfied: flatbuffers==25.12.19 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 17)) (25.12.19)
+Requirement already satisfied: fonttools==4.66.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 18)) (4.66.1)
+Requirement already satisfied: gast==0.7.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 19)) (0.7.0)
+Requirement already satisfied: gdown==6.4.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 20)) (6.4.1)
+Requirement already satisfied: google-pasta==0.2.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 21)) (0.2.0)
+Requirement already satisfied: grpcio==1.84.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 22)) (1.84.0)
+Requirement already satisfied: gunicorn==26.2.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 23)) (26.2.0)
+Requirement already satisfied: h5py==3.14.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 24)) (3.14.0)
+Requirement already satisfied: idna==3.20 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 25)) (3.20)
+Requirement already satisfied: itsdangerous==2.2.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 26)) (2.2.0)
+Requirement already satisfied: Jinja2==3.1.6 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 27)) (3.1.6)
+Requirement already satisfied: joblib==1.6.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 28)) (1.6.0)
+Requirement already satisfied: keras==3.15.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 29)) (3.15.1)
+Requirement already satisfied: kiwisolver==1.5.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 30)) (1.5.1)
+Requirement already satisfied: libclang==18.1.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 31)) (18.1.1)
+Requirement already satisfied: lightdsa==0.0.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 32)) (0.0.3)
+Requirement already satisfied: lightecc==0.0.7 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 33)) (0.0.7)
+Requirement already satisfied: lightphe==0.0.25 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 34)) (0.0.25)
+Requirement already satisfied: lz4==4.4.5 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 35)) (4.4.5)
+Requirement already satisfied: markdown-it-py==4.2.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 36)) (4.2.0)
+Requirement already satisfied: MarkupSafe==3.0.4 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 37)) (3.0.4)
+Requirement already satisfied: matplotlib==3.11.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 38)) (3.11.2)
+Requirement already satisfied: mdurl==0.1.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 39)) (0.1.2)
+Requirement already satisfied: ml_dtypes==0.6.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 40)) (0.6.0)
+Requirement already satisfied: mpmath==1.3.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 41)) (1.3.0)
+Requirement already satisfied: mtcnn==1.0.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 42)) (1.0.0)
+Requirement already satisfied: namex==0.1.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 43)) (0.1.0)
+Requirement already satisfied: numpy==2.5.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 44)) (2.5.3)
+Requirement already satisfied: opencv-python==4.14.0.94 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 45)) (4.14.0.94)
+Requirement already satisfied: opt_einsum==3.4.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 46)) (3.4.0)
+Requirement already satisfied: optree==0.20.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 47)) (0.20.0)
+Requirement already satisfied: packaging==26.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 48)) (26.3)
+Requirement already satisfied: pandas==3.0.6 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 49)) (3.0.6)
+Requirement already satisfied: pillow==12.3.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 50)) (12.3.0)
+Requirement already satisfied: protobuf==7.36.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 51)) (7.36.2)
+Requirement already satisfied: pycparser==3.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 52)) (3.1)
+Requirement already satisfied: Pygments==2.21.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 53)) (2.21.0)
+Requirement already satisfied: pyparsing==3.3.3 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 54)) (3.3.3)
+Requirement already satisfied: PySocks==1.7.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 55)) (1.7.1)
+Requirement already satisfied: python-dateutil==2.9.0.post0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 56)) (2.9.0.post0)
+Requirement already satisfied: python-dotenv==1.2.4 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 57)) (1.2.4)
+Requirement already satisfied: requests==2.34.2 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 58)) (2.34.2)
+Requirement already satisfied: retina-face==0.0.18 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 59)) (0.0.18)
+Requirement already satisfied: rich==15.0.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 60)) (15.0.0)
+Requirement already satisfied: setuptools==84.0.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 61)) (84.0.0)
+Requirement already satisfied: six==1.17.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 62)) (1.17.0)
+Requirement already satisfied: sounddevice==0.5.6 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 63)) (0.5.6)
+Requirement already satisfied: soupsieve==2.10 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 64)) (2.10)
+Requirement already satisfied: sympy==1.14.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 65)) (1.14.0)
+Requirement already satisfied: tensorflow==2.21.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 66)) (2.21.0)
+Requirement already satisfied: termcolor==3.3.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 67)) (3.3.0)
+Requirement already satisfied: tf_keras==2.21.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 68)) (2.21.0)
+Requirement already satisfied: tqdm==4.70.1 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 69)) (4.70.1)
+Requirement already satisfied: typing_extensions==4.16.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 70)) (4.16.0)
+Requirement already satisfied: urllib3==2.8.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 71)) (2.8.0)
+Requirement already satisfied: Werkzeug==3.1.9 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 72)) (3.1.9)
+Requirement already satisfied: wheel==0.48.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 73)) (0.48.0)
+Requirement already satisfied: wrapt==2.5.0 in ./.venv/lib/python3.12/site-packages (from -r requirements-expression.lock.txt (line 74)) (2.5.0)
+No broken requirements found.
+No broken requirements found.
+INFO: [environment.cc:36] Creating LiteRT environment with options
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x795788002fc0, name=GPU WebGPU
+INFO: [gpu_registry.cc:113] Statically linked GPU accelerator registered.
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x795788003370, name=CpuAccelerator
+INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.
+INFO: [compiled_model.cc:829] Flatbuffer model initialized directly from incoming litert model.
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: Logging before InitGoogle() is written to STDERR
+W0000 00:00:1791469324.339958   23961 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.
+W0000 00:00:1791469324.344345   23964 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1791469324.354738   23964 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1791469324.368649   23972 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1791469324.378860   23973 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x795788003370, name=CpuAccelerator
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x795788002fc0, name=GPU WebGPU
+Python 3.12.3 MediaPipe 1.1.0 OpenCV 4.14.0
+API antigua mp.solutions: False
+Tres modelos Tasks cargados. Cámara sin abrir.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791469325.935725   24003 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1791469325.935963   24003 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1791469326.844701   24003 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1791469326.845042   24003 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+26-10-08 16:22:05 - ⚠️ 
+======================================================================
+ ⚠️ DEPRECATION WARNING:
+ Running 'pip install deepface' alone will no longer be sufficient and will
+ NOT install a default backend in an upcoming major release.
+
+ Currently, TensorFlow is included by default, but this behavior will be deprecated.
+ Please explicitly specify your preferred backend engine when installing:
+
+   -> pip install deepface[tensorflow]
+   -> pip install deepface[pytorch]
+
+ Otherwise, you will encounter 'module not found' errors.
+======================================================================
+
+Expresión preparada. DeepFace 0.0.101 TensorFlow 2.21.0 tf-keras 2.21.0
+test_already_happy_not_reaction (test_decision.DialogueTests.test_already_happy_not_reaction) ... ok
+test_break_freezes_and_resumes (test_decision.DialogueTests.test_break_freezes_and_resumes) ... ok
+test_expression_before_joke_not_reaction (test_decision.DialogueTests.test_expression_before_joke_not_reaction) ... ok
+test_hand_priority_over_warning (test_decision.DialogueTests.test_hand_priority_over_warning) ... ok
+test_joke_smile_change_and_no_reaction (test_decision.DialogueTests.test_joke_smile_change_and_no_reaction) ... ok
+test_large_gap_does_not_advance (test_decision.DialogueTests.test_large_gap_does_not_advance) ... ok
+test_model_failure_does_not_penalize (test_decision.DialogueTests.test_model_failure_does_not_penalize) ... ok
+test_monotonic_clock_and_empty_lesson (test_decision.DialogueTests.test_monotonic_clock_and_empty_lesson) ... ok
+test_normal_completion (test_decision.DialogueTests.test_normal_completion) ... ok
+test_pause_does_not_reset_lesson (test_decision.DialogueTests.test_pause_does_not_reset_lesson) ... ok
+test_progressive_warnings_and_bad_end (test_decision.DialogueTests.test_progressive_warnings_and_bad_end) ... ok
+test_recovery_lowers_one_level (test_decision.DialogueTests.test_recovery_lowers_one_level) ... ok
+test_terminal_ignores_signals (test_decision.DialogueTests.test_terminal_ignores_signals) ... ok
+test_unknown_freezes_bad_timer (test_decision.DialogueTests.test_unknown_freezes_bad_timer) ... ok
+test_blink_short_keeps_attention (test_decision.FilterTests.test_blink_short_keeps_attention) ... ok
+test_closed_long_is_away (test_decision.FilterTests.test_closed_long_is_away) ... ok
+test_inference_gap_does_not_prove_duration (test_decision.FilterTests.test_inference_gap_does_not_prove_duration) ... ok
+test_initial_unknown_then_reliable (test_decision.FilterTests.test_initial_unknown_then_reliable) ... ok
+test_no_face_is_unknown_not_away (test_decision.FilterTests.test_no_face_is_unknown_not_away) ... ok
+test_repeat_output_does_not_build_stability (test_decision.FilterTests.test_repeat_output_does_not_build_stability) ... ok
+test_stale_and_future (test_decision.FilterTests.test_stale_and_future) ... ok
+test_user_change_resets_history (test_decision.FilterTests.test_user_change_resets_history) ... ok
+test_wink_and_bad_mesh_are_unknown (test_decision.FilterTests.test_wink_and_bad_mesh_are_unknown) ... ok
+test_noise_does_not_trigger (test_decision.HandTests.test_noise_does_not_trigger) ... ok
+test_single_event_until_lowered (test_decision.HandTests.test_single_event_until_lowered) ... ok
+test_sparse_detections_not_hold (test_decision.HandTests.test_sparse_detections_not_hold) ... ok
+test_unknown_does_not_rearm (test_decision.HandTests.test_unknown_does_not_rearm) ... ok
+test_invalid_values (test_geometry.ConfigTests.test_invalid_values) ... ok
+test_closed_without_gaze (test_geometry.EyeTests.test_closed_without_gaze) ... ok
+test_iris_outside_unknown (test_geometry.EyeTests.test_iris_outside_unknown) ... ok
+test_look_side (test_geometry.EyeTests.test_look_side) ... ok
+test_open_center (test_geometry.EyeTests.test_open_center) ... ok
+test_scale_rotation_invariant (test_geometry.EyeTests.test_scale_rotation_invariant) ... ok
+test_wink_unknown (test_geometry.EyeTests.test_wink_unknown) ... ok
+test_compensate_roll (test_geometry.HeadTests.test_compensate_roll) ... ok
+test_degenerate_unknown (test_geometry.HeadTests.test_degenerate_unknown) ... ok
+test_excessive_roll_unknown (test_geometry.HeadTests.test_excessive_roll_unknown) ... ok
+test_front_and_scale_translation (test_geometry.HeadTests.test_front_and_scale_translation) ... ok
+test_turn_and_down_away (test_geometry.HeadTests.test_turn_and_down_away) ... ok
+test_empty_and_iou (test_geometry.PrimaryTests.test_empty_and_iou) ... ok
+test_invalid_hand (test_geometry.PrimaryTests.test_invalid_hand) ... ok
+test_largest_then_lock_even_when_other_grows (test_geometry.PrimaryTests.test_largest_then_lock_even_when_other_grows) ... ok
+test_expression_and_shutdown (test_transport.TransportTests.test_expression_and_shutdown) ... ok
+test_fragmented_image_packet (test_transport.TransportTests.test_fragmented_image_packet) ... ok
+test_truncated_packet (test_transport.TransportTests.test_truncated_packet) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 0.026s
+
+OK
+
+Instalación comprobada. Ejecuta ./ejecutar.sh cara para empezar con tu cámara.

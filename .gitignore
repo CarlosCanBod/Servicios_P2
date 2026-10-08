@@ -221,3 +221,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Originales del profesor conservados localmente; ya hay copias actuales en la raíz.
+p2data/
+.venv-vision/
+# Imágenes de pruebas descargadas y registros de futuras sesiones personales.
+resultados/prueba_*.json
+resultados/sesion.json
+.cache/

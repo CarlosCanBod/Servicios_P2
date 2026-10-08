@@ -1,0 +1,8 @@
+final_normal final_bueno [('final_bueno', 30.0)]
+final_por_desatencion final_malo [('ligeramente_molesto', 4.0), ('claramente_molesto', 10.0), ('final_malo', 18.0)]
+recuperacion inicial [('ligeramente_molesto', 4.0), ('claramente_molesto', 10.0), ('ligeramente_molesto', 13.0), ('inicial', 14.0)]
+sin_deteccion inicial []
+descanso ligeramente_molesto [('descanso', 1.0), ('inicial', 10.0), ('ligeramente_molesto', 13.1)]
+chiste_sonrisa inicial [('analisis_expresion', 12.0), ('inicial', 12.5)]
+chiste_sin_reaccion inicial [('analisis_expresion', 12.0), ('ligeramente_molesto', 17.0), ('inicial', 18.0)]
+chiste_modelo_error inicial [('analisis_expresion', 12.0), ('inicial', 17.0)]

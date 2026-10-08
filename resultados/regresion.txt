@@ -1,0 +1,53 @@
+test_already_happy_not_reaction (test_decision.DialogueTests.test_already_happy_not_reaction) ... ok
+test_break_freezes_and_resumes (test_decision.DialogueTests.test_break_freezes_and_resumes) ... ok
+test_expression_before_joke_not_reaction (test_decision.DialogueTests.test_expression_before_joke_not_reaction) ... ok
+test_hand_priority_over_warning (test_decision.DialogueTests.test_hand_priority_over_warning) ... ok
+test_joke_smile_change_and_no_reaction (test_decision.DialogueTests.test_joke_smile_change_and_no_reaction) ... ok
+test_large_gap_does_not_advance (test_decision.DialogueTests.test_large_gap_does_not_advance) ... ok
+test_model_failure_does_not_penalize (test_decision.DialogueTests.test_model_failure_does_not_penalize) ... ok
+test_monotonic_clock_and_empty_lesson (test_decision.DialogueTests.test_monotonic_clock_and_empty_lesson) ... ok
+test_normal_completion (test_decision.DialogueTests.test_normal_completion) ... ok
+test_pause_does_not_reset_lesson (test_decision.DialogueTests.test_pause_does_not_reset_lesson) ... ok
+test_progressive_warnings_and_bad_end (test_decision.DialogueTests.test_progressive_warnings_and_bad_end) ... ok
+test_recovery_lowers_one_level (test_decision.DialogueTests.test_recovery_lowers_one_level) ... ok
+test_terminal_ignores_signals (test_decision.DialogueTests.test_terminal_ignores_signals) ... ok
+test_unknown_freezes_bad_timer (test_decision.DialogueTests.test_unknown_freezes_bad_timer) ... ok
+test_blink_short_keeps_attention (test_decision.FilterTests.test_blink_short_keeps_attention) ... ok
+test_closed_long_is_away (test_decision.FilterTests.test_closed_long_is_away) ... ok
+test_inference_gap_does_not_prove_duration (test_decision.FilterTests.test_inference_gap_does_not_prove_duration) ... ok
+test_initial_unknown_then_reliable (test_decision.FilterTests.test_initial_unknown_then_reliable) ... ok
+test_no_face_is_unknown_not_away (test_decision.FilterTests.test_no_face_is_unknown_not_away) ... ok
+test_repeat_output_does_not_build_stability (test_decision.FilterTests.test_repeat_output_does_not_build_stability) ... ok
+test_stale_and_future (test_decision.FilterTests.test_stale_and_future) ... ok
+test_user_change_resets_history (test_decision.FilterTests.test_user_change_resets_history) ... ok
+test_wink_and_bad_mesh_are_unknown (test_decision.FilterTests.test_wink_and_bad_mesh_are_unknown) ... ok
+test_noise_does_not_trigger (test_decision.HandTests.test_noise_does_not_trigger) ... ok
+test_single_event_until_lowered (test_decision.HandTests.test_single_event_until_lowered) ... ok
+test_sparse_detections_not_hold (test_decision.HandTests.test_sparse_detections_not_hold) ... ok
+test_unknown_does_not_rearm (test_decision.HandTests.test_unknown_does_not_rearm) ... ok
+test_empty_crop (test_expression_errors.ExpressionErrorTests.test_empty_crop) ... ok
+test_invalid_output_does_not_create_smile (test_expression_errors.ExpressionErrorTests.test_invalid_output_does_not_create_smile) ... ok
+test_model_error_is_explicit (test_expression_errors.ExpressionErrorTests.test_model_error_is_explicit) ... ok
+test_invalid_values (test_geometry.ConfigTests.test_invalid_values) ... ok
+test_closed_without_gaze (test_geometry.EyeTests.test_closed_without_gaze) ... ok
+test_iris_outside_unknown (test_geometry.EyeTests.test_iris_outside_unknown) ... ok
+test_look_side (test_geometry.EyeTests.test_look_side) ... ok
+test_open_center (test_geometry.EyeTests.test_open_center) ... ok
+test_scale_rotation_invariant (test_geometry.EyeTests.test_scale_rotation_invariant) ... ok
+test_wink_unknown (test_geometry.EyeTests.test_wink_unknown) ... ok
+test_compensate_roll (test_geometry.HeadTests.test_compensate_roll) ... ok
+test_degenerate_unknown (test_geometry.HeadTests.test_degenerate_unknown) ... ok
+test_excessive_roll_unknown (test_geometry.HeadTests.test_excessive_roll_unknown) ... ok
+test_front_and_scale_translation (test_geometry.HeadTests.test_front_and_scale_translation) ... ok
+test_turn_and_down_away (test_geometry.HeadTests.test_turn_and_down_away) ... ok
+test_empty_and_iou (test_geometry.PrimaryTests.test_empty_and_iou) ... ok
+test_invalid_hand (test_geometry.PrimaryTests.test_invalid_hand) ... ok
+test_largest_then_lock_even_when_other_grows (test_geometry.PrimaryTests.test_largest_then_lock_even_when_other_grows) ... ok
+test_expression_and_shutdown (test_transport.TransportTests.test_expression_and_shutdown) ... ok
+test_fragmented_image_packet (test_transport.TransportTests.test_fragmented_image_packet) ... ok
+test_truncated_packet (test_transport.TransportTests.test_truncated_packet) ... ok
+
+----------------------------------------------------------------------
+Ran 48 tests in 0.029s
+
+OK

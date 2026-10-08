@@ -1,0 +1,686 @@
+{
+  "summary": {
+    "command": [
+      "/home/alejandro/Alejandro/Robotica_Servicios/P2/.venv-vision/bin/python",
+      "/home/alejandro/Alejandro/Robotica_Servicios/P2/tutor/__main__.py",
+      "--input",
+      "video.mp4",
+      "--max-seconds",
+      "2",
+      "--log",
+      "resultados/gui_tutor.json"
+    ],
+    "config": {
+      "sample_s": 0.1,
+      "stale_s": 0.8,
+      "away_hold_s": 0.6,
+      "closed_hold_s": 1.0,
+      "recover_s": 1.0,
+      "hand_hold_s": 0.5,
+      "hand_release_s": 0.5,
+      "warning_s": 4.0,
+      "escalate_s": 6.0,
+      "finish_s": 8.0,
+      "phrase_s": 3.0,
+      "joke_after_s": 12.0,
+      "joke_window_s": 5.0,
+      "emotion_period_s": 0.8,
+      "emotion_stale_s": 2.5,
+      "happy_min": 0.55,
+      "happy_delta": 0.15,
+      "ear_closed": 0.18,
+      "ear_open": 0.22,
+      "gaze_low": 0.3,
+      "gaze_high": 0.7,
+      "gaze_vertical_low": 0.15,
+      "gaze_vertical_high": 0.85,
+      "yaw_max": 0.23,
+      "pitch_low": 0.25,
+      "pitch_high": 0.78,
+      "roll_max_deg": 35.0,
+      "min_eye_px": 10.0,
+      "min_face_px": 65.0,
+      "face_confidence": 0.6,
+      "track_iou": 0.15,
+      "max_faces": 3,
+      "width": 640
+    },
+    "input": "video.mp4",
+    "input_sha256": "26a62ebab244ad77f0a245f7f455a8053ac311bab4e1f414caa4e76986446e56",
+    "lesson_sha256": "c08916e31c6a070f80015ce484cf3e16e4e50292cd7b5c3dedb1c73983c347b8",
+    "stop_reason": "limite_entrada",
+    "state": "inicial",
+    "lesson_s": 0.9100600759998088,
+    "elapsed_wall_s": 5.275929151000128,
+    "observations": 19,
+    "expressions": 3,
+    "ui_loop_median_ms": 11.790117000145983,
+    "ui_loop_p95_ms": 20.53709860010713,
+    "errors": [],
+    "emotion_disabled": false,
+    "note": "EOF no equivale a final bueno. Simular señales no valida visión."
+  },
+  "observations": [
+    {
+      "time_s": 0.0,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": -0.5287609403776299,
+        "yaw_ratio": -0.03334173812137654,
+        "pitch_ratio": 0.6109627669488289,
+        "ear_right": 0.32419692057950317,
+        "ear_left": 0.3156047763639426,
+        "iris_x_right": 0.44517076075493006,
+        "iris_x_left": 0.5319835486485492,
+        "iris_y_right": 0.42217749660783704,
+        "iris_y_left": 0.41300567829947066
+      },
+      "bbox": [
+        200,
+        103,
+        392,
+        295
+      ],
+      "latency_ms": 29.44686000000729
+    },
+    {
+      "time_s": 0.13333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.433986556227254,
+        "yaw_ratio": -0.007360907801010003,
+        "pitch_ratio": 0.5978770574734331,
+        "ear_right": 0.3220845159844181,
+        "ear_left": 0.3188026815672583,
+        "iris_x_right": 0.44670837292811744,
+        "iris_x_left": 0.5584813170763201,
+        "iris_y_right": 0.4153798961992798,
+        "iris_y_left": 0.3934718878217766
+      },
+      "bbox": [
+        196,
+        104,
+        386,
+        294
+      ],
+      "latency_ms": 28.196577000016987
+    },
+    {
+      "time_s": 0.23333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 2.1971917784759634,
+        "yaw_ratio": -0.007822686046089503,
+        "pitch_ratio": 0.6077040629979504,
+        "ear_right": 0.3284170147618007,
+        "ear_left": 0.31173973088001633,
+        "iris_x_right": 0.452997732572262,
+        "iris_x_left": 0.5377521804037513,
+        "iris_y_right": 0.41975850904289397,
+        "iris_y_left": 0.4022332326538102
+      },
+      "bbox": [
+        191,
+        102,
+        388,
+        299
+      ],
+      "latency_ms": 22.429279999869323
+    },
+    {
+      "time_s": 0.33333333333333337,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 3.1362607322647222,
+        "yaw_ratio": -0.02482522010660792,
+        "pitch_ratio": 0.6048877027009585,
+        "ear_right": 0.3301342062603635,
+        "ear_left": 0.32177103320544387,
+        "iris_x_right": 0.4499326956311791,
+        "iris_x_left": 0.5390870217212745,
+        "iris_y_right": 0.42244410813823313,
+        "iris_y_left": 0.4044803170407493
+      },
+      "bbox": [
+        191,
+        104,
+        386,
+        299
+      ],
+      "latency_ms": 22.358152999913727
+    },
+    {
+      "time_s": 0.43333333333333335,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.006880784909483,
+        "yaw_ratio": -0.04720861073563444,
+        "pitch_ratio": 0.599717691888128,
+        "ear_right": 0.32571765504409256,
+        "ear_left": 0.31654971207302857,
+        "iris_x_right": 0.4462397884950273,
+        "iris_x_left": 0.5353907295279399,
+        "iris_y_right": 0.4063326288339098,
+        "iris_y_left": 0.39644320449655174
+      },
+      "bbox": [
+        193,
+        106,
+        386,
+        299
+      ],
+      "latency_ms": 23.16310300011537
+    },
+    {
+      "time_s": 0.5333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 0.6567188232352353,
+        "yaw_ratio": -0.05295398035781133,
+        "pitch_ratio": 0.6160478347980773,
+        "ear_right": 0.3248640548033763,
+        "ear_left": 0.3130263038800846,
+        "iris_x_right": 0.4530246868938286,
+        "iris_x_left": 0.5332601865097178,
+        "iris_y_right": 0.4282385595195667,
+        "iris_y_left": 0.41386723398647474
+      },
+      "bbox": [
+        190,
+        103,
+        386,
+        299
+      ],
+      "latency_ms": 22.44867300032638
+    },
+    {
+      "time_s": 0.6333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 0.8253840511939948,
+        "yaw_ratio": -0.0628890458237176,
+        "pitch_ratio": 0.6193281219534552,
+        "ear_right": 0.3207233909734797,
+        "ear_left": 0.3114596213909382,
+        "iris_x_right": 0.4497132659444489,
+        "iris_x_left": 0.5306847454283923,
+        "iris_y_right": 0.4291780588158636,
+        "iris_y_left": 0.42009432816284503
+      },
+      "bbox": [
+        190,
+        102,
+        386,
+        298
+      ],
+      "latency_ms": 24.68785900009607
+    },
+    {
+      "time_s": 0.7333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.7262376666254706,
+        "yaw_ratio": -0.05019799968006489,
+        "pitch_ratio": 0.6265728633402494,
+        "ear_right": 0.32128870164927,
+        "ear_left": 0.31293200417291867,
+        "iris_x_right": 0.456222987407624,
+        "iris_x_left": 0.540297648380528,
+        "iris_y_right": 0.43588837165216643,
+        "iris_y_left": 0.4209507998744791
+      },
+      "bbox": [
+        189,
+        100,
+        385,
+        296
+      ],
+      "latency_ms": 22.90423100021144
+    },
+    {
+      "time_s": 0.8333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 2.1809181004312714,
+        "yaw_ratio": -0.022411035032340036,
+        "pitch_ratio": 0.6224522554261113,
+        "ear_right": 0.3134378652885131,
+        "ear_left": 0.30984675798281563,
+        "iris_x_right": 0.4585199624619164,
+        "iris_x_left": 0.5467767332864217,
+        "iris_y_right": 0.4256339642060708,
+        "iris_y_left": 0.40631336377881
+      },
+      "bbox": [
+        188,
+        98,
+        384,
+        294
+      ],
+      "latency_ms": 24.682967999979155
+    },
+    {
+      "time_s": 0.9333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 3.7141330026884245,
+        "yaw_ratio": -0.007522068338007847,
+        "pitch_ratio": 0.6187134054035701,
+        "ear_right": 0.3114418872364453,
+        "ear_left": 0.3070501587870348,
+        "iris_x_right": 0.4665750110564731,
+        "iris_x_left": 0.5438136747825282,
+        "iris_y_right": 0.4352506729384936,
+        "iris_y_left": 0.41276590922413964
+      },
+      "bbox": [
+        189,
+        98,
+        385,
+        294
+      ],
+      "latency_ms": 22.435221999785426
+    },
+    {
+      "time_s": 1.0333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 3.6306770409433486,
+        "yaw_ratio": -0.010478284722646928,
+        "pitch_ratio": 0.6228061153915898,
+        "ear_right": 0.30218766419948,
+        "ear_left": 0.3060861774943659,
+        "iris_x_right": 0.459696814790731,
+        "iris_x_left": 0.5511401790225973,
+        "iris_y_right": 0.424852370235975,
+        "iris_y_left": 0.40900708827169585
+      },
+      "bbox": [
+        188,
+        97,
+        384,
+        293
+      ],
+      "latency_ms": 25.182306000260724
+    },
+    {
+      "time_s": 1.1333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 3.246319128718946,
+        "yaw_ratio": -0.010260055165966207,
+        "pitch_ratio": 0.620520867375877,
+        "ear_right": 0.2916177324368016,
+        "ear_left": 0.29686577161671407,
+        "iris_x_right": 0.4469955725409495,
+        "iris_x_left": 0.5563035587338759,
+        "iris_y_right": 0.4152039879104999,
+        "iris_y_left": 0.406294503068444
+      },
+      "bbox": [
+        188,
+        96,
+        386,
+        294
+      ],
+      "latency_ms": 35.04981800006135
+    },
+    {
+      "time_s": 1.2333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.7162002694018523,
+        "yaw_ratio": -0.005057500840900814,
+        "pitch_ratio": 0.6223970998011938,
+        "ear_right": 0.28304310482718287,
+        "ear_left": 0.28955166064465704,
+        "iris_x_right": 0.4525059211789812,
+        "iris_x_left": 0.5558724427457382,
+        "iris_y_right": 0.4075739196185431,
+        "iris_y_left": 0.3975864591622786
+      },
+      "bbox": [
+        185,
+        94,
+        385,
+        294
+      ],
+      "latency_ms": 27.323171999796614
+    },
+    {
+      "time_s": 1.3333333333333335,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 2.7401756976834992,
+        "yaw_ratio": -0.0055640559968147514,
+        "pitch_ratio": 0.6036020191423787,
+        "ear_right": 0.2778240312865534,
+        "ear_left": 0.28670581393988714,
+        "iris_x_right": 0.45429012031955235,
+        "iris_x_left": 0.5540243932379014,
+        "iris_y_right": 0.4246688255888912,
+        "iris_y_left": 0.4108538754978288
+      },
+      "bbox": [
+        188,
+        97,
+        384,
+        293
+      ],
+      "latency_ms": 24.80410899988783
+    },
+    {
+      "time_s": 1.4333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.3467341162571964,
+        "yaw_ratio": 0.011765864008821984,
+        "pitch_ratio": 0.5982573828490295,
+        "ear_right": 0.27825623510642433,
+        "ear_left": 0.2846221362197429,
+        "iris_x_right": 0.4561347040542936,
+        "iris_x_left": 0.5627038763842216,
+        "iris_y_right": 0.4157644033208405,
+        "iris_y_left": 0.39999386106871576
+      },
+      "bbox": [
+        184,
+        96,
+        379,
+        291
+      ],
+      "latency_ms": 23.067757000262645
+    },
+    {
+      "time_s": 1.5333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.946910915411578,
+        "yaw_ratio": -0.006656925102434833,
+        "pitch_ratio": 0.5916763415250109,
+        "ear_right": 0.2722259067655172,
+        "ear_left": 0.28127305017759585,
+        "iris_x_right": 0.4622209814063663,
+        "iris_x_left": 0.5618963452787799,
+        "iris_y_right": 0.4423079727554156,
+        "iris_y_left": 0.42717537043869813
+      },
+      "bbox": [
+        184,
+        99,
+        378,
+        293
+      ],
+      "latency_ms": 25.111841000125423
+    },
+    {
+      "time_s": 1.6333333333333333,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 3.4366662078450645,
+        "yaw_ratio": -0.011871050655468507,
+        "pitch_ratio": 0.6221026920978416,
+        "ear_right": 0.2748151169861613,
+        "ear_left": 0.28451965984125316,
+        "iris_x_right": 0.46221100332720255,
+        "iris_x_left": 0.56395207826536,
+        "iris_y_right": 0.41868262379585813,
+        "iris_y_left": 0.40784699617748565
+      },
+      "bbox": [
+        181,
+        95,
+        378,
+        292
+      ],
+      "latency_ms": 21.82429599997704
+    },
+    {
+      "time_s": 1.7333333333333334,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.6656917319141165,
+        "yaw_ratio": -0.013724043936929024,
+        "pitch_ratio": 0.6229757800415752,
+        "ear_right": 0.26764664073510586,
+        "ear_left": 0.2830546650704163,
+        "iris_x_right": 0.46335941909168044,
+        "iris_x_left": 0.5657878130889926,
+        "iris_y_right": 0.4144528052349557,
+        "iris_y_left": 0.398531531862193
+      },
+      "bbox": [
+        181,
+        93,
+        380,
+        292
+      ],
+      "latency_ms": 23.761714000102074
+    },
+    {
+      "time_s": 1.8333333333333335,
+      "user_id": 0,
+      "face": true,
+      "head_front": true,
+      "eyes_open": true,
+      "gaze_front": true,
+      "hand_up": false,
+      "reason": "medicion_valida",
+      "metrics": {
+        "faces": 1,
+        "hands": 0,
+        "roll_deg": 1.2115806221070884,
+        "yaw_ratio": -0.009860926368553737,
+        "pitch_ratio": 0.6238403236279925,
+        "ear_right": 0.2648772071757477,
+        "ear_left": 0.28340505544666084,
+        "iris_x_right": 0.45681706581429926,
+        "iris_x_left": 0.5577099685375491,
+        "iris_y_right": 0.4073341584275333,
+        "iris_y_left": 0.4046736180391823
+      },
+      "bbox": [
+        181,
+        94,
+        380,
+        293
+      ],
+      "latency_ms": 25.34357700005785
+    }
+  ],
+  "expressions": [
+    {
+      "time_s": 0.0,
+      "user_id": 0,
+      "scores": {
+        "angry": 0.10824240684509277,
+        "disgust": 0.00017324700951576233,
+        "fear": 0.06324889659881591,
+        "happy": 0.0017157669365406036,
+        "sad": 0.05288988590240479,
+        "surprise": 0.00027217891067266465,
+        "neutral": 0.7734575653076172
+      },
+      "label": "neutral",
+      "error": null,
+      "latency_ms": 60.6735880000997
+    },
+    {
+      "time_s": 0.8333333333333334,
+      "user_id": 0,
+      "scores": {
+        "angry": 0.02602498769760132,
+        "disgust": 4.557964392006397e-05,
+        "fear": 0.027409608364105224,
+        "happy": 0.2562923812866211,
+        "sad": 0.014081214666366576,
+        "surprise": 0.0018117552995681762,
+        "neutral": 0.6743345642089844
+      },
+      "label": "neutral",
+      "error": null,
+      "latency_ms": 7.509038999614859
+    },
+    {
+      "time_s": 1.7333333333333334,
+      "user_id": 0,
+      "scores": {
+        "angry": 2.106309050786681e-13,
+        "disgust": 1.344545121071323e-21,
+        "fear": 1.301735225823575e-16,
+        "happy": 0.99966064453125,
+        "sad": 5.866276353572175e-12,
+        "surprise": 1.5495702498924402e-10,
+        "neutral": 0.0003394249454140663
+      },
+      "label": "happy",
+      "error": null,
+      "latency_ms": 7.611077999627014
+    }
+  ],
+  "events": []
+}

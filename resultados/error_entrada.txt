@@ -1,0 +1,5 @@
+usage: __main__.py [-h] [--input INPUT] [--config CONFIG] [--lesson LESSON]
+                   [--headless] [--no-emotion]
+                   [--emotion-python EMOTION_PYTHON]
+                   [--max-seconds MAX_SECONDS] [--log LOG]
+__main__.py: error: Entrada inexistente: /tmp/p2_no_existe.mp4
