@@ -1,0 +1,11 @@
+Tutoriales de MediaPipe con Python
+https://www.youtube.com/playlist?list=PLBg7GSvtrU2OaYp2F-FqqZk0RUB4IUvvb
+
+Real-Time Head Pose Estimation (MediaPipe and OpenCV) 
+https://www.youtube.com/watch?v=-toNMaS4SeQ
+
+Detección de manos (MediaPipe and OpenCV) 
+https://www.youtube.com/watch?v=_zjKszdAVG8
+
+Detección de somnolencia en conductores
+https://learnopencv.com/driver-drowsiness-detection-using-mediapipe-in-python/

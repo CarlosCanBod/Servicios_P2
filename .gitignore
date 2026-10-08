@@ -3,6 +3,9 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+
+doc/2018_TFM_SARA_MORALEDA_MORENO.pdf
+doc/2021-22_TFG_JavierMartinez.pdf
 # C extensions
 *.so
 
