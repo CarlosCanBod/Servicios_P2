@@ -10,6 +10,7 @@ import sys
 import time
 import cv2
 from .attention import AttentionFilter, HandEdge
+from .audio import WarningSound, test_sound
 from .capture import Capture
 from .config import Config, ROOT
 from .dialogue import Dialogue
@@ -25,10 +26,15 @@ def main(argv=None):
     parser.add_argument('--lesson',default=str(ROOT/'leccion.txt'))
     parser.add_argument('--headless',action='store_true',help='No abrir ventana; sí ejecutar todos los modelos')
     parser.add_argument('--no-emotion',action='store_true',help='Solo diagnóstico: omite expresión y su reacción')
+    parser.add_argument('--no-sound',action='store_true',help='Desactivar los pitidos de advertencia')
+    parser.add_argument('--test-sound',action='store_true',help='Probar dos pitidos sin abrir cámara ni modelos')
     parser.add_argument('--emotion-python',default=str(ROOT/'.venv/bin/python'))
     parser.add_argument('--max-seconds',type=float,help='Límite en segundos de entrada')
     parser.add_argument('--log',default=str(ROOT/'resultados/sesion.json'))
     args=parser.parse_args(argv)
+    if args.test_sound:
+        if args.no_sound: parser.error('--test-sound y --no-sound son incompatibles')
+        return test_sound()
     if args.max_seconds is not None and (not math.isfinite(args.max_seconds) or args.max_seconds<=0): parser.error('--max-seconds debe ser positivo')
     try:
         config=Config.load(args.config)
@@ -44,7 +50,9 @@ def main(argv=None):
     af=AttentionFilter(config); hand=HandEdge(config)
     rows=[]; expressions=[]; events=[]; errors=[]; ui_latencies=[]
     status=Attention.UNKNOWN; reason='inicializando'; stop_reason='error'; code=0
-    start=time.monotonic(); last_submit=-1.; last_emotion=-1.; now=0.; finished_at=None
+    start=time.monotonic(); last_submit=-1.; last_emotion=-1.; now=0.; finished_at=None; eof_started=None
+    # Los diagnósticos sin ventana son silenciosos. La prueba de sonido es independiente.
+    sound=WarningSound(enabled=not args.no_sound and not args.headless)
     try:
         vision=Worker(vision_worker,(config,))
         if not args.no_emotion:
@@ -71,14 +79,16 @@ def main(argv=None):
                 now=max(now,frame_time,time.monotonic()-capture.started)
                 if frame_time-last_submit>=config.sample_s-1e-8:
                     vision.submit((frame.copy(),frame_time,user_id)); last_submit=frame_time
-            elif last_frame_wall is not None:
+            elif last_frame_wall is not None and not capture.done:
                 # En ausencia de nuevos frames el reloj sigue: las salidas deben caducar.
                 now=max(now,time.monotonic()-capture.started)
             result=vision.receive()
+            new_observation=False
             if result:
                 candidate,crop=result
-                if candidate.user_id==user_id:
+                if candidate.user_id==user_id and (obs is None or candidate.time_s>obs.time_s):
                     obs=candidate
+                    new_observation=True
                     if emotion and crop is not None and obs.time_s-last_emotion>=config.emotion_period_s:
                         emotion.submit((crop,obs.time_s,user_id)); last_emotion=obs.time_s
                     rows.append(asdict(obs))
@@ -88,27 +98,36 @@ def main(argv=None):
                 if exp and exp.user_id==user_id:
                     expression=exp; expressions.append(asdict(exp))
                     if exp.error and exp.error not in errors: errors.append(exp.error)
+                if emotion.error:
+                    message=f'Expresión: {emotion.error}'
+                    if message not in errors: errors.append(message)
+                    emotion.close(); emotion=None; expression=None
             status,reason=af.update(obs,now)
-            fresh_exp=expression if (expression and expression.user_id==user_id and obs and obs.face
-                and now-expression.time_s<=config.emotion_stale_s) else None
+            fresh_exp=expression if (expression and expression.is_fresh(now,config.emotion_stale_s,user_id)
+                and obs and obs.face and 0<=now-obs.time_s<=config.stale_s) else None
             # Solo las nuevas observaciones añaden tiempo al gesto; repetir una salida no lo hace.
             hand_event=False
-            if result and obs and obs.user_id==user_id and now-obs.time_s<=config.stale_s:
-                hand_event=hand.update(obs.hand_up,obs.time_s)
-            elif status==Attention.UNKNOWN:
-                hand.update(None,now)
+            if new_observation and obs and 0<=now-obs.time_s<=config.stale_s:
+                hand_event=hand.update(obs.hand_up,obs.time_s,hand_present=obs.hand_present)
+            elif obs is None or now-obs.time_s>config.stale_s:
+                hand.invalidate()
             dialogue.update(now,status,hand_event,fresh_exp)
             if dialogue.events:
                 for event in dialogue.events:
+                    event['sound_requested']=sound.on_event(event)
                     event['session']=user_id; print(json.dumps(event,ensure_ascii=False),flush=True)
                 events.extend(dialogue.events); dialogue.events.clear()
-            runtime_error=vision.error or (emotion.error if emotion else None) or capture.error
+            sound.poll()
+            runtime_error=vision.error or (emotion.error if emotion else None) or capture.error or sound.error
             if runtime_error and runtime_error not in errors: errors.append(runtime_error)
             if frame is not None and not args.headless:
-                view=render(frame,obs,status,reason,dialogue,fresh_exp,runtime_error or (errors[-1] if errors else None))
+                view=render(frame,obs,status,reason,dialogue,fresh_exp,runtime_error or (errors[-1] if errors else None),
+                            hand_ready=hand.armed)
                 cv2.imshow('P2 - Tutor visual',view)
                 key=cv2.waitKey(1)&0xff
                 if key in (ord('q'),27): stop_reason='usuario'; break
+                if cv2.getWindowProperty('P2 - Tutor visual',cv2.WND_PROP_VISIBLE)<1:
+                    stop_reason='ventana_cerrada'; break
                 if key==ord('r'):
                     user_id+=1; obs=None; expression=None; af.reset(); hand=HandEdge(config)
                     dialogue=Dialogue(config,phrases); last_submit=-1.; last_emotion=-1.; finished_at=None
@@ -119,15 +138,23 @@ def main(argv=None):
                     stop_reason=dialogue.state.value; break
             if args.max_seconds is not None and now>=args.max_seconds: stop_reason='limite_entrada'; break
             if capture.done and packet is None and not dialogue.finished:
-                stop_reason='error_captura' if capture.error else 'fin_video'
-                code=2 if capture.error else 0
-                break
+                # Dejar llegar la última inferencia enviada, sin añadir tiempo de lección
+                # una vez agotada la entrada. La espera está acotada y no bloquea la UI.
+                if eof_started is None: eof_started=time.monotonic()
+                last_result_arrived=obs is not None and obs.time_s>=last_submit
+                wait_expired=time.monotonic()-eof_started>=config.stale_s
+                if capture.error or last_result_arrived or wait_expired:
+                    stop_reason='error_captura' if capture.error else 'fin_video'
+                    code=2 if capture.error else 0
+                    break
             if vision.error: code=2; stop_reason='error_vision'; break
             time.sleep(0.01)
     except (OSError,ValueError,RuntimeError) as exc:
         errors.append(f'{type(exc).__name__}: {exc}'); print(errors[-1],file=sys.stderr); code=2
     except KeyboardInterrupt: stop_reason='interrupcion_usuario'
     finally:
+        sound.close()
+        if sound.error and sound.error not in errors: errors.append(sound.error)
         if capture: capture.close()
         if vision: vision.close()
         if emotion: emotion.close()
@@ -141,6 +168,7 @@ def main(argv=None):
             'ui_loop_median_ms':float(np.median(ui_latencies)) if ui_latencies else None,
             'ui_loop_p95_ms':float(np.percentile(ui_latencies,95)) if ui_latencies else None,
             'errors':errors,'emotion_disabled':args.no_emotion,
+            'sound':sound.summary(),
             'note':'EOF no equivale a final bueno. Simular señales no valida visión.'}
         path=Path(args.log); path.parent.mkdir(parents=True,exist_ok=True)
         path.write_text(json.dumps({'summary':summary,'observations':rows,'expressions':expressions,'events':events},ensure_ascii=False,indent=2))

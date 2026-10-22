@@ -44,6 +44,11 @@ class EyeTests(unittest.TestCase):
         self.assertIsNone(eye_geometry(p,C)[0])
     def test_iris_outside_unknown(self):
         p=self.mesh(); p[468]=[1000,50]; self.assertIsNone(eye_geometry(p,C)[1])
+    def test_degenerate_central_lid_does_not_imply_looking_away(self):
+        p=self.mesh(); p[159]=p[145]
+        opened,gaze,metrics=eye_geometry(p,C)
+        self.assertTrue(opened); self.assertIsNone(gaze)
+        self.assertEqual(metrics['error'],'iris_no_fiable')
     def test_scale_rotation_invariant(self):
         p=self.mesh(); a=np.deg2rad(20); matrix=np.array([[np.cos(a),-np.sin(a)],[np.sin(a),np.cos(a)]])
         opened,gaze,m=eye_geometry((p@matrix.T)*2,C); self.assertTrue(opened); self.assertTrue(gaze); self.assertAlmostEqual(m['ear_right'],.3)

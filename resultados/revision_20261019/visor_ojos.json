@@ -1,0 +1,198 @@
+{
+  "command": [
+    "/home/alejandro/Alejandro/Robotica_Servicios/P2/scripts/probar_detector.py",
+    "ojos",
+    "--input",
+    "video.mp4",
+    "--max-seconds",
+    "1",
+    "--log",
+    "resultados/revision_20261019/visor_ojos.json"
+  ],
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.5,
+    "closed_hold_s": 0.5,
+    "unknown_hold_s": 0.5,
+    "attention_recover_s": 0.2,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "smile_hold_s": 0.4,
+    "feedback_s": 2.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "ear_closed": 0.13,
+    "ear_open": 0.18,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "min_hand_px": 20.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "input": "video.mp4",
+  "detector": "ojos",
+  "elapsed_s": 1.3243194749993563,
+  "error": null,
+  "manual_observation": null,
+  "samples": [
+    {
+      "time_s": 0.0,
+      "metrics": {
+        "ear_right": 0.32419681775663733,
+        "ear_left": 0.3156051154050314,
+        "iris_x_right": 0.44517076075493006,
+        "iris_x_left": 0.5319832885174667,
+        "iris_y_right": 0.42217749660783704,
+        "iris_y_left": 0.41300567829947066,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 13.973949000501307
+      }
+    },
+    {
+      "time_s": 0.1,
+      "metrics": {
+        "ear_right": 0.3263856194378064,
+        "ear_left": 0.3185981565431317,
+        "iris_x_right": 0.4368753619116737,
+        "iris_x_left": 0.5552285452881806,
+        "iris_y_right": 0.4070865922631776,
+        "iris_y_left": 0.4064228880188617,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 8.853936999003054
+      }
+    },
+    {
+      "time_s": 0.2,
+      "metrics": {
+        "ear_right": 0.3248688147394803,
+        "ear_left": 0.3186861898152295,
+        "iris_x_right": 0.4378732252322795,
+        "iris_x_left": 0.5592109681358812,
+        "iris_y_right": 0.39963449352381336,
+        "iris_y_left": 0.40120273172582993,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 8.698922001713072
+      }
+    },
+    {
+      "time_s": 0.3333333333333333,
+      "metrics": {
+        "ear_right": 0.3237875849863384,
+        "ear_left": 0.3155505014982173,
+        "iris_x_right": 0.43424539503057347,
+        "iris_x_left": 0.5516446838882174,
+        "iris_y_right": 0.3924816204478091,
+        "iris_y_left": 0.3981851583802749,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 8.852421000483446
+      }
+    },
+    {
+      "time_s": 0.43333333333333335,
+      "metrics": {
+        "ear_right": 0.3241210024748978,
+        "ear_left": 0.3153241261187336,
+        "iris_x_right": 0.4337298387226738,
+        "iris_x_left": 0.552821169281287,
+        "iris_y_right": 0.3896160827898146,
+        "iris_y_left": 0.3942262935389696,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 9.308362001320347
+      }
+    },
+    {
+      "time_s": 0.5333333333333333,
+      "metrics": {
+        "ear_right": 0.32348536510349163,
+        "ear_left": 0.31392764142532753,
+        "iris_x_right": 0.4348829278048834,
+        "iris_x_left": 0.5554804813190614,
+        "iris_y_right": 0.3849499549835739,
+        "iris_y_left": 0.3865495633606755,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 7.955846000186284
+      }
+    },
+    {
+      "time_s": 0.6333333333333333,
+      "metrics": {
+        "ear_right": 0.3224987055689761,
+        "ear_left": 0.31422715727918527,
+        "iris_x_right": 0.43368375997214653,
+        "iris_x_left": 0.5558334027526264,
+        "iris_y_right": 0.3835784406661717,
+        "iris_y_left": 0.38439023193675204,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 7.6881409986526705
+      }
+    },
+    {
+      "time_s": 0.7333333333333333,
+      "metrics": {
+        "ear_right": 0.3156573989509937,
+        "ear_left": 0.3091062067542254,
+        "iris_x_right": 0.4319095564552437,
+        "iris_x_left": 0.5551177621360032,
+        "iris_y_right": 0.3839559920842663,
+        "iris_y_left": 0.3864927925519101,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 8.013668000785401
+      }
+    },
+    {
+      "time_s": 0.8333333333333334,
+      "metrics": {
+        "ear_right": 0.3126847284630228,
+        "ear_left": 0.3066752418719663,
+        "iris_x_right": 0.43151169887770774,
+        "iris_x_left": 0.5534048026101446,
+        "iris_y_right": 0.38840530670486045,
+        "iris_y_left": 0.3937154732178335,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 7.702864000748377
+      }
+    },
+    {
+      "time_s": 0.9333333333333333,
+      "metrics": {
+        "ear_right": 0.3118524923465515,
+        "ear_left": 0.3085524089048944,
+        "iris_x_right": 0.43307214162073093,
+        "iris_x_left": 0.5513567234750575,
+        "iris_y_right": 0.3925865196767432,
+        "iris_y_left": 0.39870740710941305,
+        "ojos_abiertos": true,
+        "mirada_frontal": true,
+        "latency_ms": 7.794862000082503
+      }
+    }
+  ]
+}

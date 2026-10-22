@@ -1,11 +1,12 @@
 {
   "sample_s": 0.1,
   "stale_s": 0.8,
-  "away_hold_s": 0.6,
-  "closed_hold_s": 1.0,
+  "away_hold_s": 0.5,
+  "closed_hold_s": 0.5,
   "recover_s": 1.0,
   "hand_hold_s": 0.5,
   "hand_release_s": 0.5,
+  "hand_absent_release_s": 1.0,
   "warning_s": 4.0,
   "escalate_s": 6.0,
   "finish_s": 8.0,
@@ -15,9 +16,8 @@
   "emotion_period_s": 0.8,
   "emotion_stale_s": 2.5,
   "happy_min": 0.55,
-  "happy_delta": 0.15,
-  "ear_closed": 0.18,
-  "ear_open": 0.22,
+  "ear_closed": 0.13,
+  "ear_open": 0.18,
   "gaze_low": 0.3,
   "gaze_high": 0.7,
   "gaze_vertical_low": 0.15,
@@ -31,5 +31,10 @@
   "face_confidence": 0.6,
   "track_iou": 0.15,
   "max_faces": 3,
-  "width": 640
+  "width": 640,
+  "unknown_hold_s": 0.5,
+  "attention_recover_s": 0.2,
+  "smile_hold_s": 0.4,
+  "feedback_s": 2.0,
+  "min_hand_px": 20.0
 }

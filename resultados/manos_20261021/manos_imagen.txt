@@ -1,0 +1,79 @@
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: Logging before InitGoogle() is written to STDERR
+W0000 00:00:1792615409.003524   29663 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.013655   29663 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.033921   29662 landmark_projection_calculator.cc:81] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+INFO: [environment.cc:36] Creating LiteRT environment with options
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x70ce9c002180, name=GPU WebGPU
+INFO: [gpu_registry.cc:113] Statically linked GPU accelerator registered.
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x70ce9c0a02d0, name=CpuAccelerator
+INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.
+INFO: [compiled_model.cc:829] Flatbuffer model initialized directly from incoming litert model.
+W0000 00:00:1792615409.315611   29679 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.
+W0000 00:00:1792615409.323951   29682 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.334945   29682 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.348883   29687 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.358644   29687 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792615409.359853   29676 inference_runner_litert.cc:1090] Input tensor memory is not aligned according to LiteRt's memory alignment requirements. Reallocating memory and copying data.
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x70ce9c0a02d0, name=CpuAccelerator
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x70ce9c002180, name=GPU WebGPU
+{
+  "command": [
+    "scripts/diagnose_hands.py",
+    "--output",
+    "resultados/manos_20261021/manos_imagen.json"
+  ],
+  "image_sha256": "70cbeb38e198c9862202e0979c21a99b40ca980d3e7b250176c85b1636a40f12",
+  "source": "https://storage.googleapis.com/mediapipe-tasks/hand_landmarker/woman_hands.jpg",
+  "sample_reference": "https://github.com/google-ai-edge/mediapipe-samples/blob/main/examples/hand_landmarker/python/hand_landmarker.ipynb",
+  "hands": 2,
+  "landmarks_per_hand": [
+    21,
+    21
+  ],
+  "initialization_and_inference_ms": 344.3343830003869,
+  "integration_face": true,
+  "integration_hand_up": true,
+  "integration_reason": "medicion_valida",
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.5,
+    "closed_hold_s": 0.5,
+    "unknown_hold_s": 0.5,
+    "attention_recover_s": 0.2,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "hand_absent_release_s": 1.0,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "smile_hold_s": 0.4,
+    "feedback_s": 2.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "ear_closed": 0.13,
+    "ear_open": 0.18,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "min_hand_px": 20.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "note": "Imagen real de ejemplo; sin gesto temporal ni evaluaci\u00f3n de exactitud."
+}

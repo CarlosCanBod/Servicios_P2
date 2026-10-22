@@ -1,0 +1,19 @@
+{
+  "command": "./ejecutar.sh tutor --test-sound",
+  "input": "assets/aviso.wav",
+  "sha256": "73e3fc987d9400e74aa3c65ae336d9cad48233d21e3e3a13309d6a00cf9fc17d",
+  "config": {
+    "sample_rate_hz": 44100,
+    "channels": 1,
+    "sample_bits": 16,
+    "duration_s": 0.48,
+    "tone_hz": 880,
+    "tone_duration_s": 0.18,
+    "gap_s": 0.12,
+    "amplitude": 0.2
+  },
+  "player": "pw-play",
+  "return_code": 0,
+  "human_hearing_verified": false,
+  "note": "El reproductor terminó sin error. Falta que Alejandro confirme audición y volumen."
+}

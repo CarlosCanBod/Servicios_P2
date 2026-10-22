@@ -1,0 +1,9 @@
+.venv/
+.venv-vision/
+node_modules/
+.cache/
+*.mp4
+*.task
+*.log
+p2data/
+resultados/

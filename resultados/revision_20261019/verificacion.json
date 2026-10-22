@@ -1,0 +1,42 @@
+{
+  "originals_changed": [],
+  "regressions_before": 59,
+  "regressions_after": 96,
+  "vision_before": {
+    "atiende": 60,
+    "no_atiende": 0,
+    "desconocida": 36
+  },
+  "vision_after": {
+    "atiende": 83,
+    "no_atiende": 1,
+    "desconocida": 12
+  },
+  "integration_errors": [],
+  "integration_expressions": 12,
+  "scope": "Filtros, estados y geometría comprobados con señales artificiales y fuentes reales disponibles; no hay calibración personal ni precisión medida.",
+  "sources_sha256": {
+    "tutor/__init__.py": "88cadf5f84ffc17dc3a1ad0dbd26662ac39f49987ffe9ee304b871b5a790ca24",
+    "tutor/__main__.py": "a1e7801b0765c3ccbc98554dd0c4b38fd9b0e90e124a68c2de90f5cc72b82273",
+    "tutor/app.py": "e9ab9a7e2404c3aead3829cba0770d0dfa54477f6dac8f7f4d3286146b089853",
+    "tutor/attention.py": "5f06c5ef1c7f44b6bdef30cd1ce6ceea6a240b006ba3cf20ed204fbe9222d8af",
+    "tutor/audio.py": "9c74d6029cee0428a78b8007dca13ef5b0eeee9aa4b880c6d9bfe22bd4033aab",
+    "tutor/capture.py": "af5d9e5afe83a25bfdc2cfc280fff8cd46a0a26cef2b025c33d6fd29c84efc80",
+    "tutor/config.py": "a7e0f866d266439a49466420a1602d96212180ded8dee0f48ef66e390aa13f1d",
+    "tutor/dialogue.py": "fe23635ae7f69af391a8b27db34b92ef7d9932fe30faa565c9fd72499f0ec3d9",
+    "tutor/expression.py": "12c7f59594a02a5a4a940a86503d018436c12351c926e83230615f5a042bbc5f",
+    "tutor/expression_service.py": "03d92a2fcf495093eb9cd2b46418f0158e9699282f6489c56ea207fa4fc7392a",
+    "tutor/geometry.py": "124e074963d6d63fc65f1569132ab2a83c38825450c7852ee328dc3ab022f842",
+    "tutor/interface.py": "9307beffae00e2b20ba990e155596c3c2d6d78dd98ba425c1b23a3ec9b1cc7b1",
+    "tutor/protocol.py": "f51a56769139a1f56f7776b74ca8af3c128690906219322435f2d8a4e7b440f3",
+    "tutor/signals.py": "ea739e2a620f383fe6fe5d3535ccdc18082c0e758850dee239b7d9e08287e1a2",
+    "tutor/vision.py": "606f41bbf721ee281e8d1f3b38ef61fc783e4025dcaebed480bd0c2bad023d29",
+    "tutor/workers.py": "ab5ce9a08a75588ac6973810b476b02ab9362881aaaf6af0ec423166faacc46b"
+  },
+  "commands": [
+    ".venv-vision/bin/python -m unittest discover -s tests -v",
+    ".venv-vision/bin/python scripts/validar_parpadeos.py",
+    ".venv-vision/bin/python scripts/diagnose_video.py --output resultados/revision_20261019/vision_despues.json",
+    "./ejecutar.sh tutor --input video.mp4 --headless --log resultados/revision_20261019/integracion_video.json"
+  ]
+}

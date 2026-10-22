@@ -7,7 +7,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 FONT=Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
 
-def render(frame, obs, attention, reason, dialogue, expression, error=None):
+def hand_description(obs):
+    """Separar ausencia de mano, gesto ambiguo y señal no atribuible al alumno."""
+    if obs.hand_present is False: return 'no detectada'
+    if obs.hand_up is True: return 'elevada'
+    if obs.hand_up is False: return 'bajada visible'
+    return 'gesto no claro' if obs.hand_present is True else 'no evaluable'
+
+def render(frame, obs, attention, reason, dialogue, expression, error=None, hand_ready=None):
     h,w=frame.shape[:2]
     image=Image.new('RGB',(max(960,w+320),h+210),(19,25,36))
     image.paste(Image.fromarray(cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)),(0,0))
@@ -23,7 +30,9 @@ def render(frame, obs, attention, reason, dialogue, expression, error=None):
         lines=[f'Atención: {attention.value}',f'Motivo: {reason}',
             f'Cara: {flag(obs.face)}',f'Cabeza frontal: {flag(obs.head_front)}',
             f'Ojos abiertos: {flag(obs.eyes_open)}',f'Mirada centrada: {flag(obs.gaze_front)}',
-            f'Mano elevada: {flag(obs.hand_up)}',f'Visión: {obs.latency_ms:.1f} ms']
+            f'Mano: {hand_description(obs)}',f'Visión: {obs.latency_ms:.1f} ms']
+        if hand_ready is not None:
+            lines.append('Gesto: listo para otra subida' if hand_ready else 'Gesto: baja la mano para rearmar')
         for key in ('roll_deg','yaw_ratio','pitch_ratio','ear_right','ear_left'):
             if key in obs.metrics: lines.append(f'{key}: {obs.metrics[key]:.3f}')
     for i,line in enumerate(lines): draw.text((w+12,10+i*23),line,font=font,fill=(224,230,240))
@@ -35,7 +44,7 @@ def render(frame, obs, attention, reason, dialogue, expression, error=None):
         draw.text((16,y),line,font=title,fill=(245,245,245)); y+=26
     label=expression.label if expression and not expression.error else 'no evaluable'
     score=expression.scores.get(label,0) if expression else 0
-    draw.text((16,h+130),f'Expresión estimada: {label} ({score:.2f}). No mide emoción real ni atención.',font=font,fill=(195,204,219))
+    draw.text((16,h+130),f'Expresión estimada: {label} ({score:.2f}).',font=font,fill=(195,204,219))
     draw.text((16,h+160),f'q: salir | r: reiniciar lección y seleccionar cara principal',font=font,fill=(195,204,219))
     if error: draw.text((16,h+185),str(error)[:108],font=font,fill=(255,145,145))
     return cv2.cvtColor(np.array(image),cv2.COLOR_RGB2BGR)

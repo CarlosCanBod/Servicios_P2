@@ -101,7 +101,7 @@ class DialogueTests(unittest.TestCase):
         self.d.update(0,A); self.d.update(100,A); self.assertEqual(self.d.lesson_s,0)
     def test_joke_smile_change_and_no_reaction(self):
         for reaction,target in ((.8,State.INITIAL),(.1,State.MILD)):
-            c=replace(C,joke_after_s=.4,joke_window_s=.5)
+            c=replace(C,joke_after_s=.4,joke_window_s=.5,smile_hold_s=.15)
             d=Dialogue(c,['uno','dos','tres'])
             for i in range(6):
                 t=i*.1; d.update(t,A,expression=Expression(t,0,{'happy':.1},'neutral'))
@@ -109,12 +109,12 @@ class DialogueTests(unittest.TestCase):
             for i in range(6,12):
                 t=i*.1; d.update(t,A,expression=Expression(t,0,{'happy':reaction},'happy'))
             self.assertEqual(d.state,target)
-    def test_already_happy_not_reaction(self):
-        c=replace(C,joke_after_s=.3,joke_window_s=.4)
+    def test_already_happy_is_not_penalized(self):
+        c=replace(C,joke_after_s=.3,joke_window_s=.7,smile_hold_s=.2)
         d=Dialogue(c,['uno','dos','tres'])
         for i in range(10):
             t=i*.1; d.update(t,A,expression=Expression(t,0,{'happy':.9},'happy'))
-        self.assertEqual(d.state,State.MILD)
+        self.assertEqual(d.state,State.INITIAL)
     def test_model_failure_does_not_penalize(self):
         c=replace(C,joke_after_s=.3,joke_window_s=.4)
         d=Dialogue(c,['uno','dos','tres'])

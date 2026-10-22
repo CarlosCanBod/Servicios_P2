@@ -1,0 +1,80 @@
+INFO: [environment.cc:36] Creating LiteRT environment with options
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x7daa0c002420, name=GPU WebGPU
+INFO: [gpu_registry.cc:113] Statically linked GPU accelerator registered.
+INFO: [accelerator_registry.cc:54] RegisterAccelerator: ptr=0x7daa0c0027d0, name=CpuAccelerator
+INFO: [cpu_registry.cc:75] XNNPACK CPU accelerator registered.
+INFO: [compiled_model.cc:829] Flatbuffer model initialized directly from incoming litert model.
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: Logging before InitGoogle() is written to STDERR
+W0000 00:00:1792447521.882929   29274 face_landmarker_graph.cc:180] Sets FaceBlendshapesGraph acceleration to xnnpack by default.
+W0000 00:00:1792447521.887411   29276 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792447521.898614   29276 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792447521.912756   29282 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792447521.921973   29282 inference_feedback_manager.cc:121] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1792447521.939565   29271 inference_runner_litert.cc:1090] Input tensor memory is not aligned according to LiteRt's memory alignment requirements. Reallocating memory and copying data.
+W0000 00:00:1792447521.961655   29282 landmark_projection_calculator.cc:81] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x7daa0c0027d0, name=CpuAccelerator
+INFO: [accelerator_registry.cc:43] DestroyAccelerator: ptr=0x7daa0c002420, name=GPU WebGPU
+{
+  "command": [
+    "scripts/diagnose_video.py",
+    "--output",
+    "resultados/revision_20261019/vision_despues.json"
+  ],
+  "input": "video.mp4",
+  "input_sha256": "26a62ebab244ad77f0a245f7f455a8053ac311bab4e1f414caa4e76986446e56",
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.5,
+    "closed_hold_s": 0.5,
+    "unknown_hold_s": 0.5,
+    "attention_recover_s": 0.2,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "smile_hold_s": 0.4,
+    "feedback_s": 2.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "ear_closed": 0.13,
+    "ear_open": 0.18,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "min_hand_px": 20.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "decoded_frames": 286,
+  "fps": 30.0,
+  "duration_s": 9.533333333333333,
+  "samples": 96,
+  "elapsed_s": 3.0388801650005917,
+  "latency_median_ms": 21.470018498803256,
+  "latency_p95_ms": 22.97925524862876,
+  "face_samples": 96,
+  "hand_positive_samples": 0,
+  "attention_counts": {
+    "atiende": 83,
+    "no_atiende": 1,
+    "desconocida": 12
+  },
+  "warning": "Recuentos de salidas; no son porcentajes de acierto. Sin etiquetas de referencia."
+}

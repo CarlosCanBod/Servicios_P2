@@ -1,0 +1,88 @@
+{
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.5,
+    "closed_hold_s": 0.5,
+    "unknown_hold_s": 0.5,
+    "attention_recover_s": 0.2,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "hand_absent_release_s": 1.0,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "smile_hold_s": 0.4,
+    "feedback_s": 2.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "ear_closed": 0.13,
+    "ear_open": 0.18,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "min_hand_px": 20.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "source_sha256": {
+    "tutor/signals.py": "5f0bca24401098475dd66aaf50b95f6d9b97ab8bd2813d6438521a8cf51d4960",
+    "tutor/attention.py": "8ac35403874739f47ed72f6f35c1811c1f86eb76195aeb639153a9f0997bf83a",
+    "tutor/app.py": "c55b43491a416a410a1adfb1620b620ac6d7329e61dc208717ee3d58b26b1354",
+    "tutor/vision.py": "368b1710817614513d78b26509ba955776e03d24f4be54206eb35d5b686e2142",
+    "tutor/interface.py": "b1a05ba27476aec2bbc74375690cb5c402a871028de6b50827f591fda716938b",
+    "tutor/dialogue.py": "eb834dd8c2e2e1927121814dcbc277d85dae212c0c3f026f638b8ad242eebb7d",
+    "tutor/config.py": "c6fbdb6ac2a322bcee5a31d0b4d7abf7e1bf84d29aaa07783746d324f18e262e",
+    "config.json": "afd5b26153e59d80f22e16c5d156c2a2bb918cc92b0c951de14e79f4d4308beb",
+    "tests/test_hand_rearm.py": "0a893930b9fd1d394520a9e50cff5a8c59a704b504da3e52f7e3d5521be0cf56",
+    "tests/test_app_integration.py": "9b3d6ed3056f420a7450118a6162ae1611333b266c6f9e161394afb43822cd1f",
+    "tests/test_temporal_revision.py": "bc0bbbb5dc4602e36697a6091422981161f2d90b4eb561d1b9ac89f2aa6231a1"
+  },
+  "regression_command": ".venv-vision/bin/python -m unittest discover -s tests -v",
+  "regression_tests": 109,
+  "regression_result": "OK",
+  "regression_log": "regresion.txt",
+  "before_change_reproduction": {
+    "input": "mano arriba 0-0.6 s, sin mano 0.7-2.1 s, nueva subida 2.2-3.4 s",
+    "events_s": [
+      0.5
+    ],
+    "note": "Reproducción con señales controladas antes de la corrección; no imágenes reales."
+  },
+  "real_video": {
+    "samples": 96,
+    "hand_not_detected_samples": 96,
+    "note": "Sin secuencia de manos; comprueba ausencia explícita, no reanudación real."
+  },
+  "real_hands_image": {
+    "hands": 2,
+    "landmarks_per_hand": [
+      21,
+      21
+    ],
+    "integration_face": true,
+    "integration_hand_up": true
+  },
+  "real_integration": {
+    "stop_reason": "fin_video",
+    "observations": 96,
+    "expressions": 12,
+    "errors": []
+  },
+  "manual_pending": "Subida, bajada fuera de imagen durante al menos 1 s con cara visible y nueva subida de 0.5 s; comprobar indicador de rearme.",
+  "limitation": "Una oclusión prolongada también puede rearmar, pero nunca produce por sí sola una petición."
+}

@@ -37,3 +37,11 @@ Se comprobaron Python 3.12.3, MediaPipe 1.1.0 y los tres modelos actuales. La in
 Por instrucción posterior de Alejandro, se preparan ahora instalación y pruebas manuales con cámara; la memoria PDF y el vídeo (duración confirmada: dos minutos) quedan para cuando hayamos terminado esas revisiones. No se ha abierto la cámara ni se ha grabado ningún vídeo.
 
 Alejandro ha solicitado compartir estos resultados mediante un commit en AlejandroLavandeira para que los compañeros prueben el prototipo. Se incluyen instalación, código, pruebas y evidencias reproducibles; los entornos y registros personales de cámara quedan excluidos.
+
+## Extensión de avisos sonoros (15 de octubre de 2026)
+
+La decisión inicial excluía sonidos. Por petición expresa posterior de Alejandro se añade un «bep bep» al primer y segundo aviso, para que la advertencia llegue aunque no mire la pantalla. El audio se liga a las transiciones de advertencia, no a los fotogramas; recuperación y descanso no generan pitidos. Un reproductor externo evita esperar en el bucle de cámara. Se incluye una prueba independiente de altavoz y una opción para silenciarlo. Esta extensión se distinguirá del alcance inicial al documentar la entrega.
+
+## Revisión temporal y lógica (19-20 de octubre de 2026)
+
+Se reprodujo la pausa por apertura ambigua, se incorporó una tolerancia de 0,5 s y se bajaron los umbrales oculares. Se corrigieron además problemas de continuidad de recuperación, paciencia, reacción al chiste, bajada de mano y coordinación de la aplicación. La revisión y la trazabilidad de pruebas están en [revision_logica.md](revision_logica.md). Las limitaciones de visión y la calibración con Alejandro siguen distinguiéndose de las pruebas de reglas con señales simuladas.

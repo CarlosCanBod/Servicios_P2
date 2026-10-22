@@ -1,0 +1,7 @@
+Pérdida 0.10 s -> pausa 0.00 s, excluido arranque
+Pérdida 0.20 s -> pausa 0.00 s, excluido arranque
+Pérdida 0.30 s -> pausa 0.00 s, excluido arranque
+Pérdida 0.40 s -> pausa 0.00 s, excluido arranque
+Pérdida 0.49 s -> pausa 0.00 s, excluido arranque
+Pérdida 0.51 s -> pausa 0.21 s, excluido arranque
+Pérdida 0.70 s -> pausa 0.40 s, excluido arranque

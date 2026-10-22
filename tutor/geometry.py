@@ -40,11 +40,12 @@ RIGHT_EYE=(33,160,158,133,153,144)
 LEFT_EYE=(362,385,387,263,373,380)
 
 
-def eye_geometry(mesh, c):
+def eye_geometry(mesh, c, previous_open=None):
     """EAR=(dos distancias verticales)/(2*anchura); iris proyectado sobre cada ojo."""
     p=np.asarray(mesh,dtype=float)
-    if len(p)<478 or not np.isfinite(p).all(): return None,None,{'error':'malla_invalida'}
-    ears=[]; horizontal=[]; vertical=[]
+    if p.ndim!=2 or p.shape[0]<478 or p.shape[1]!=2 or not np.isfinite(p).all():
+        return None,None,{'error':'malla_invalida'}
+    ears=[]; horizontal=[]; vertical=[]; lid_heights=[]
     for indices, iris, top, bottom in ((RIGHT_EYE,468,159,145),(LEFT_EYE,473,386,374)):
         a,b,d,e,f,g=p[list(indices)]
         width=float(np.linalg.norm(a-e))
@@ -53,13 +54,24 @@ def eye_geometry(mesh, c):
         corners=sorted((a,e),key=lambda point:point[0]); axis=corners[1]-corners[0]
         horizontal.append(float((p[iris]-corners[0])@axis/(axis@axis)))
         v=p[bottom]-p[top]
+        lid_heights.append(float(np.linalg.norm(v)))
         vertical.append(float((p[iris]-p[top])@v/max(float(v@v),1e-9)))
     metrics={'ear_right':ears[0],'ear_left':ears[1],
              'iris_x_right':horizontal[0],'iris_x_left':horizontal[1],
              'iris_y_right':vertical[0],'iris_y_left':vertical[1]}
     closed=[ear<=c.ear_closed for ear in ears]; opened=[ear>=c.ear_open for ear in ears]
     if all(closed): return False,None,metrics
-    if not all(opened): return None,None,{**metrics,'error':'guino_o_apertura_ambigua'}
+    if not all(opened):
+        # Histéresis: un ojo ya abierto no se cierra por oscilar en la banda
+        # intermedia; ambos deben seguir por encima del umbral de cierre.
+        if previous_open is True and all(ear>c.ear_closed for ear in ears):
+            metrics['eye_hysteresis']=True
+        else:
+            return None,None,{**metrics,'error':'guino_o_apertura_ambigua'}
+    if min(lid_heights)<1.0:
+        # Dividir por una altura central casi nula no permite estimar mirada.
+        # El cierre se ha comprobado antes: aquí no se convierte un fallo geométrico en desatención.
+        return True,None,{**metrics,'error':'iris_no_fiable'}
     if (any(x<0 or x>1 for x in horizontal+vertical) or abs(horizontal[0]-horizontal[1])>0.25):
         return True,None,{**metrics,'error':'iris_no_fiable'}
     gaze=(all(c.gaze_low<=x<=c.gaze_high for x in horizontal)
@@ -67,14 +79,15 @@ def eye_geometry(mesh, c):
     return True,gaze,metrics
 
 
-def raised_hand(points, bbox):
-    """Petición visible: palma encima de la boca y tres dedos extendidos.
+def raised_hand(points, bbox, min_size_px=20.):
+    """True: petición; False: mano baja visible; None: gesto ambiguo o no evaluable.
 
     Solo se asocia por proximidad a una cara, no por identidad. Con varias caras
     la percepción inhibe esta señal para no atribuir la mano de otro alumno.
     """
     p=np.asarray(points,dtype=float)
     if p.shape!=(21,2) or not np.isfinite(p).all(): return None
+    if max(float(np.ptp(p[:,0])),float(np.ptp(p[:,1])))<min_size_px: return None
     x0,y0,x1,y1=bbox; width=x1-x0; height=y1-y0
     palm=p[[0,5,9,13,17]].mean(axis=0)
     near=(x0-1.3*width<=palm[0]<=x1+1.3*width)
@@ -82,5 +95,13 @@ def raised_hand(points, bbox):
     extended=0
     for mcp,pip,tip in ((5,6,8),(9,10,12),(13,14,16),(17,18,20)):
         # La distancia al inicio del dedo evita contar un puño como mano abierta.
-        extended+=np.linalg.norm(p[tip]-p[mcp])>1.35*np.linalg.norm(p[pip]-p[mcp])
-    return bool(near and above and extended>=3)
+        first=p[pip]-p[mcp]; second=p[tip]-p[pip]
+        lengths=float(np.linalg.norm(first)*np.linalg.norm(second))
+        straight=lengths>1e-9 and float(first@second)/lengths>=0.5
+        extended+=straight and np.linalg.norm(p[tip]-p[mcp])>1.35*np.linalg.norm(first)
+    if not near: return None
+    if above: return True if extended>=3 else None
+    # Banda espacial entre subir y bajar: una mano que tiembla en el límite
+    # o se cierra en un puño arriba no demuestra una nueva bajada.
+    if palm[1]>=y0+0.75*height: return False
+    return None

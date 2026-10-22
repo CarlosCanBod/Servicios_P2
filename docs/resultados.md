@@ -70,3 +70,38 @@ La tabla 2 separa implementación y evidencia existente de validación pendiente
 | Multiusuario/errores | `PrimaryUser`, contratos None/caducidad | Selección y fallos simulados | Dos personas reales, sustitución en misma posición |
 
 Tabla 2. Trazabilidad de requisitos. Los nombres de módulos pertenecen a `tutor/`; las comprobaciones de cámara están descritas en `docs/prueba_manual.md` y aún no se han realizado.
+
+## Avisos sonoros (15 de octubre de 2026)
+
+Por petición posterior del equipo se añade sonido al primer y segundo aviso. `tutor/audio.py` recibe los eventos de transición: una recuperación o una vuelta de descanso no produce pitidos. La reproducción se ejecuta como proceso externo y se consulta sin esperar en el bucle principal. Si llega el segundo aviso durante el primero, se conserva una única petición pendiente; no se solapan. Los fallos del reproductor se muestran y registran sin detener la percepción.
+
+Se generó `assets/aviso.wav` con `scripts/generar_aviso.py`: dos tonos de 880 Hz y 0,18 s separados por 0,12 s; PCM mono, 16 bits y 44100 muestras/s. La amplitud digital es 0,20 del máximo y los extremos tienen rampas de 5 ms para evitar clics. El volumen audible depende del sistema.
+
+Comando: `./ejecutar.sh tutor --test-sound`. `pw-play` completó la reproducción con código 0. Evidencias: `resultados/audio_20261015.json` y `audio_salida_20261015.txt`. No se ha confirmado con Alejandro que se oiga a volumen adecuado.
+
+Comando de integración: `.venv-vision/bin/python scripts/prueba_audio_controlada.py --log resultados/audio_integracion_controlada_20261015.json`. Utiliza vídeo real para la captura y señales de atención artificiales para provocar avisos próximos. La primera ejecución detectó que se descartaba un aviso al estar ocupado el reproductor; se corrigió con la petición pendiente. La ejecución posterior completó dos reproducciones para dos avisos, sin errores; el final malo no genera otro pitido. Esta prueba verifica la coordinación de aplicación y audio, no precisión de visión.
+
+Las 59 regresiones pasan; incluyen la secuencia de estados, reproducción pendiente, ausencia de esperas en el bucle, opción silenciosa, salida no disponible, proceso atascado y estructura del WAV. Comando: `.venv-vision/bin/python -m unittest discover -s tests -v`. Evidencia: `resultados/regresion_audio_20261015.txt`. También se ejecutó el tutor con el vídeo en modo `--headless --max-seconds 2`: terminó sin errores y sin solicitar sonido, como corresponde al diagnóstico silencioso.
+
+## Revisión temporal y de estados (19-20 de octubre de 2026)
+
+Se corrigieron las pausas por aperturas ambiguas y se revisaron temporizadores, chiste, gestos y final de entrada. Los valores y resultados anteriores se conservan como historial, no como descripción de la configuración actual. La configuración vigente, la crítica de decisiones y las pruebas están en [revision_logica.md](revision_logica.md). Las evidencias nuevas se guardan en `resultados/revision_20261019/`; pasan 96 regresiones. Los originales del profesor siguen intactos y no se ha validado todavía el ajuste personal de apertura ocular mediante un protocolo de cámara.
+
+## Reanudación del descanso (21 de octubre de 2026)
+
+Se reprodujo el bloqueo comunicado por Alejandro: después de una petición, bajar la mano fuera del encuadre no rearmaba el gesto. Ahora se distingue ausencia de mano en inferencias válidas de gesto ambiguo y señal no atribuible. Se permite rearmar tras 1 s sin manos detectadas con una única cara principal visible; se conserva la alternativa de bajada visible durante 0,5 s. Solo una nueva subida estable de 0,5 s genera otra petición.
+
+Pasan 109 regresiones, incluidas trece comprobaciones nuevas de percepción, temporizadores, interfaz e integración. Se comprueban la segunda subida tras ausencia válida, la ausencia breve, el gesto ambiguo, los resultados repetidos o desordenados, los saltos entre inferencias, la falta de cara y las caras múltiples. La ausencia por sí sola nunca reanuda el descanso. Son pruebas con señales/modelos sustituidos, no una estimación de precisión visual.
+
+El diagnóstico real de `video.mp4` produjo 96 muestras con cara y sin manos detectadas, ahora identificadas explícitamente como `hand_present=False` y `hand_up=None`. La imagen oficial produjo dos manos de 21 puntos y una mano elevada atribuida a la cara. El tutor completo terminó por `fin_video`, con 96 observaciones, 12 inferencias de expresión y cero errores registrados. El vídeo disponible no demuestra una secuencia real de pausa y reanudación. Se revisó además el texto de la interfaz mediante una imagen reconstruida del vídeo; no constituye una prueba con cámara.
+
+Los registros, configuraciones, hashes de entradas y salidas se conservan en `resultados/manos_20261021/`. Comandos desde la raíz de P2:
+
+```bash
+.venv-vision/bin/python -m unittest discover -s tests -v
+.venv-vision/bin/python scripts/diagnose_video.py --input video.mp4 --config config.json --output resultados/manos_20261021/vision_video.json
+.venv-vision/bin/python scripts/diagnose_hands.py --output resultados/manos_20261021/manos_imagen.json
+./ejecutar.sh tutor --input video.mp4 --headless --log resultados/manos_20261021/integracion_video.json
+```
+
+Queda pendiente repetir con Alejandro la secuencia descrita en [la prueba manual](prueba_manual.md#3-manos). Una oclusión de al menos un segundo también puede rearmar: la ausencia es una convención de interacción, no una prueba física de bajada. No se ha abierto su cámara, grabado el vídeo de entrega ni generado la memoria final.

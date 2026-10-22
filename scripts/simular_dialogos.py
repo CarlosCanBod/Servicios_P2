@@ -1,4 +1,5 @@
 """Guarda secuencias controladas del gestor. No ejecuta ni valida detectores."""
+import argparse
 from dataclasses import replace
 import json
 from pathlib import Path
@@ -8,6 +9,9 @@ from tutor.config import Config,ROOT
 from tutor.signals import Attention,Expression
 from tutor.dialogue import Dialogue
 
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output',default=str(ROOT/'resultados/dialogos_simulados.json'))
+args=parser.parse_args()
 c=Config(); rows=[]
 scenarios={
  'final_normal':[(40,Attention.ATTENTIVE)],
@@ -31,6 +35,7 @@ for name,segments in scenarios.items():
    observations.append({'time_s':round(t,2),'state':d.state.value,'attention':status.value,'hand_event':hand_event,'happy':None if exp.error else happy})
    t=round(t+.1,6)
  rows.append({'name':name,'config':conf.to_dict(),'final_state':d.state.value,'events':d.events,'signals':observations})
-output=ROOT/'resultados/dialogos_simulados.json'
+output=Path(args.output)
+output.parent.mkdir(parents=True,exist_ok=True)
 output.write_text(json.dumps({'command':sys.argv,'warning':'Señales artificiales. No evalúa precisión de visión.','scenarios':rows},ensure_ascii=False,indent=2))
 for row in rows: print(row['name'],row['final_state'],[(x['to'],round(x['time_s'],1)) for x in row['events']])

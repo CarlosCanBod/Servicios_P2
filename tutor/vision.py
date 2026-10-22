@@ -27,7 +27,7 @@ class Perception:
     def __init__(self, config):
         import mediapipe as mp
         self.mp=mp; self.c=config; self.stack=ExitStack(); self.primary=PrimaryUser(config)
-        self.user_id=0; self.last_ms=-1
+        self.user_id=0; self.last_ms=-1; self.previous_eyes_open=None; self.last_time_s=None
         vision=mp.tasks.vision; base=mp.tasks.BaseOptions; mode=vision.RunningMode.VIDEO
         try:
             self.detector=self.stack.enter_context(vision.FaceDetector.create_from_options(vision.FaceDetectorOptions(
@@ -52,7 +52,10 @@ class Perception:
         import numpy as np
         started=time.perf_counter()
         if user_id!=self.user_id:
-            self.user_id=user_id; self.primary=PrimaryUser(self.c)
+            self.user_id=user_id; self.primary=PrimaryUser(self.c); self.previous_eyes_open=None
+        if self.last_time_s is not None and time_s-self.last_time_s>self.c.stale_s:
+            self.previous_eyes_open=None
+        self.last_time_s=time_s
         obs=Observation(time_s=time_s,user_id=user_id)
         h,w=frame.shape[:2]
         # OpenCV entrega BGR; MediaPipe recibe RGB. Trabajamos sin espejar las medidas.
@@ -80,16 +83,24 @@ class Perception:
             mesh_boxes=[(p[:,0].min(),p[:,1].min(),p[:,0].max(),p[:,1].max()) for p in meshes]
             best=max(range(len(meshes)),key=lambda i:iou(obs.bbox,mesh_boxes[i])) if meshes else None
             if best is not None and iou(obs.bbox,mesh_boxes[best])>=0.2:
-                obs.eyes_open,obs.gaze_front,metrics=eye_geometry(meshes[best],self.c); obs.metrics.update(metrics)
-            else: obs.metrics['error']='sin_malla_correspondiente'
+                obs.eyes_open,obs.gaze_front,metrics=eye_geometry(meshes[best],self.c,self.previous_eyes_open)
+                self.previous_eyes_open=obs.eyes_open; obs.metrics.update(metrics)
+            else:
+                obs.metrics['error']='sin_malla_correspondiente'; self.previous_eyes_open=None
             obs.reason=obs.metrics.get('error','medicion_valida')
             if len(boxes)==1:
-                raised=[raised_hand([(p.x*w,p.y*h) for p in hand],obs.bbox) for hand in hands]
-                obs.hand_up=any(raised) if all(v is not None for v in raised) else None
+                # No detectar manos en una inferencia válida es distinto de no poder
+                # atribuirlas. Permite bajar fuera del encuadre sin fingir una bajada vista.
+                obs.hand_present=bool(hands)
+                raised=[raised_hand([(p.x*w,p.y*h) for p in hand],obs.bbox,self.c.min_hand_px) for hand in hands]
+                if any(v is True for v in raised): obs.hand_up=True
+                elif raised and all(v is False for v in raised): obs.hand_up=False
+                else: obs.hand_up=None
             else: obs.hand_up=None
             x0,y0,x1,y1=obs.bbox
             crop=frame[y0:y1,x0:x1].copy()
         else:
+            self.previous_eyes_open=None
             obs.reason='usuario_principal_perdido' if self.primary.box else 'sin_cara_fiable'
             crop=None
         obs.latency_ms=(time.perf_counter()-started)*1000

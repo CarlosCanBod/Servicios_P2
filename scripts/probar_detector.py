@@ -35,7 +35,7 @@ def main():
     if not cap.isOpened(): parser.error(f'No se pudo abrir la entrada {a.input}')
     model=None; expression=None; rows=[]; error=None; selected=PrimaryUser(c)
     v=mp.tasks.vision; base=mp.tasks.BaseOptions; mode=v.RunningMode.VIDEO
-    user_id=0; frames=0; start=time.monotonic(); last_ms=-1; next_sample=0.; last_expr=-10.; exp=None
+    user_id=0; frames=0; start=time.monotonic(); last_ms=-1; next_sample=0.; last_expr=-10.; exp=None; previous_eyes_open=None
     if isinstance(source,str):
         fps=cap.get(cv2.CAP_PROP_FPS)
         if not np.isfinite(fps) or fps<=0: cap.release(); parser.error('Vídeo sin FPS válidos')
@@ -76,25 +76,27 @@ def main():
                     bbox=boxes[index]
                     pts=np.array([(p.x*w,p.y*h) for p in detections[index].keypoints])
                     frontal,values=head_geometry(pts,c); metrics.update(values); metrics['frontal']=frontal
-                    if a.detector=='expresion' and t-last_expr>=c.emotion_period_s:
+                    if a.detector=='expresion' and not expression.error and t-last_expr>=c.emotion_period_s:
                         x0,y0,x1,y1=bbox; expression.submit((frame[y0:y1,x0:x1].copy(),t,user_id)); last_expr=t
                     for x,y in pts: cv2.circle(frame,(int(x),int(y)),3,(0,220,255),-1)
                 else: metrics['estado']='Sin cara principal evaluable'
                 if expression:
                     received=expression.receive()
                     if received and received.user_id==user_id: exp=received
-                    valid=exp if exp and bbox and t-exp.time_s<=c.emotion_stale_s else None
+                    if expression.error: error=expression.error; exp=None
+                    valid=exp if exp and bbox and exp.is_fresh(t,c.emotion_stale_s,user_id) else None
                     metrics['expresion']=asdict(valid) if valid else None
                     label=valid.label if valid and not valid.error else 'no evaluable'
-                    lines=[f'Expresión estimada: {label}', 'No es una certeza sobre la emoción ni la atención.',expression.error or '']
+                    lines=[f'Expresión estimada: {label}', expression.error or '']
             elif a.detector=='ojos':
                 if result.face_landmarks:
                     mesh=np.array([(p.x*w,p.y*h) for p in result.face_landmarks[0]])
-                    opened,gaze,values=eye_geometry(mesh,c)
+                    opened,gaze,values=eye_geometry(mesh,c,previous_eyes_open)
+                    previous_eyes_open=opened
                     metrics.update(values); metrics.update(ojos_abiertos=opened,mirada_frontal=gaze)
                     for i in (33,133,159,145,362,263,386,374,468,473):
                         cv2.circle(frame,tuple(mesh[i].astype(int)),2,(0,220,255),-1)
-                else: metrics['estado']='Sin malla de cara'
+                else: metrics['estado']='Sin malla de cara'; previous_eyes_open=None
             else:
                 metrics['manos']=len(result.hand_landmarks)
                 for hand in result.hand_landmarks:
@@ -114,8 +116,9 @@ def main():
             cv2.imshow(f'P2 - {a.detector}',cv2.cvtColor(np.asarray(canvas),cv2.COLOR_RGB2BGR))
             key=cv2.waitKey(1)&0xff
             if key in (ord('q'),27): break
+            if cv2.getWindowProperty(f'P2 - {a.detector}',cv2.WND_PROP_VISIBLE)<1: break
             if key==ord('r'):
-                selected=PrimaryUser(c); exp=None; user_id+=1
+                selected=PrimaryUser(c); exp=None; user_id+=1; previous_eyes_open=None
             if a.max_seconds and t>=a.max_seconds: break
     except (RuntimeError,OSError,ValueError) as exc:
         error=f'{type(exc).__name__}: {exc}'; print(error,file=sys.stderr)
