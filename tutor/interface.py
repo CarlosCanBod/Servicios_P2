@@ -4,6 +4,7 @@ import textwrap
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from .feedback import tutor_message
 
 FONT=Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf')
 
@@ -39,7 +40,7 @@ def render(frame, obs, attention, reason, dialogue, expression, error=None, hand
     y=h+12
     draw.text((16,y),f'Estado: {dialogue.state.value} | Lección: {dialogue.lesson_s:.1f} s',font=title,fill=(115,230,205))
     y+=32
-    message='Señal no evaluable: la lección está en espera.' if attention.value=='desconocida' and dialogue.state.value not in ('descanso','final_bueno','final_malo') else dialogue.message
+    message=tutor_message(obs,attention,reason,dialogue)
     for line in textwrap.wrap(message,width=90):
         draw.text((16,y),line,font=title,fill=(245,245,245)); y+=26
     label=expression.label if expression and not expression.error else 'no evaluable'

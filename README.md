@@ -73,6 +73,7 @@ Los modelos de cara del profesor se conservan en la raíz. El modelo de manos es
 | Expresión | `tutor/expression.py` | Clasifica solo el recorte de cara, mediante DeepFace |
 | Procesos | `tutor/workers.py` y `tutor/expression_service.py` | Aíslan inferencias, descartan trabajo antiguo e impiden bloquear la interfaz |
 | Interfaz | `tutor/interface.py` | Muestra señales, diagnóstico y texto de la lección en español |
+| Indicaciones | `tutor/feedback.py` | Traduce cada motivo de percepción a una acción concreta, sin cambiar los estados |
 | Avisos sonoros | `tutor/audio.py` | Reproduce dos pitidos por advertencia, sin esperar en el bucle de visión |
 | Integración | `tutor/app.py` | Coordina reloj, resultados, caducidad, estados, controles y registros |
 | Pruebas individuales | `scripts/probar_detector.py` | Ejecuta un subsistema cada vez, sin diálogo |
@@ -87,6 +88,8 @@ Los umbrales de apertura ocular se han reducido: `ear_open=0.18` y `ear_closed=0
 La confirmación visual de atención dura 0,2 s (`attention_recover_s`); volver de un estado molesto exige después 1 s continuo por nivel (`recover_s`). Un vistazo fugaz no borra la paciencia acumulada. Durante «Como iba diciendo…» no se consume tiempo de frases que no están visibles. La revisión completa, las pruebas y los límites pendientes están en [la revisión de lógica](docs/revision_logica.md).
 
 Para el descanso, mantén una mano abierta elevada 0,5 s. Para continuar, bájala y espera «Gesto: listo para otra subida» antes de elevarla otros 0,5 s. El rearme admite una bajada visible de 0,5 s o un segundo sin manos detectadas con una única cara principal visible. «Mano: no detectada» se distingue de una señal no evaluable. Perder brevemente la mano, mantenerla arriba o un gesto ambiguo no generan otra petición. El procedimiento y la limitación ante oclusiones largas están en [la prueba manual](docs/prueba_manual.md#3-manos).
+
+Si la percepción no es evaluable, el tutor muestra una indicación según el motivo: enderezar la cabeza, acercar el rostro, volver al encuadre o comprobar la cámara. No se presupone cansancio, mala iluminación ni otra causa que no se haya medido. La tolerancia al parpadeo conserva el contenido; los avisos por desatención fiable añaden la corrección correspondiente. Descansos y finales conservan su mensaje.
 
 La expresión tiene siete clases en el modelo instalado, aunque el enunciado habla de seis: angry, disgust, fear, happy, sad, surprise y neutral. Las puntuaciones son salidas del clasificador; no son porcentajes de precisión ni certezas sobre emociones internas.
 

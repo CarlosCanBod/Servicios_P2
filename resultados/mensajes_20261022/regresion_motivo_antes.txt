@@ -1,0 +1,51 @@
+test_break_near_deadline_starts_new_reaction_window (test_temporal_revision.DialogueRevisionTests.test_break_near_deadline_starts_new_reaction_window) ... ok
+test_brief_return_does_not_reset_accumulated_patience (test_temporal_revision.DialogueRevisionTests.test_brief_return_does_not_reset_accumulated_patience) ... ok
+test_eyes_away_have_priority_over_happy_during_joke (test_temporal_revision.DialogueRevisionTests.test_eyes_away_have_priority_over_happy_during_joke) ... ok
+test_feedback_does_not_consume_hidden_lesson_text (test_temporal_revision.DialogueRevisionTests.test_feedback_does_not_consume_hidden_lesson_text) ... ok
+test_future_expression_is_not_reaction (test_temporal_revision.DialogueRevisionTests.test_future_expression_is_not_reaction) ... ok
+test_nan_clock_is_rejected (test_temporal_revision.DialogueRevisionTests.test_nan_clock_is_rejected) ... ok
+test_old_smile_does_not_bridge_unknown_interval (test_temporal_revision.DialogueRevisionTests.test_old_smile_does_not_bridge_unknown_interval) ... ok
+test_only_pre_joke_expression_does_not_trigger_warning (test_temporal_revision.DialogueRevisionTests.test_only_pre_joke_expression_does_not_trigger_warning) ... ok
+test_single_repeated_smile_result_is_not_sustained_smile (test_temporal_revision.DialogueRevisionTests.test_single_repeated_smile_result_is_not_sustained_smile) ... ok
+test_smile_is_confirmed_by_two_distinct_measurements (test_temporal_revision.DialogueRevisionTests.test_smile_is_confirmed_by_two_distinct_measurements) ... ok
+test_unknown_interrupts_continuous_recovery (test_temporal_revision.DialogueRevisionTests.test_unknown_interrupts_continuous_recovery) ... ok
+test_curled_fingers_do_not_request_break (test_temporal_revision.PerceptionRevisionTests.test_curled_fingers_do_not_request_break) ... ok
+test_degenerate_hand_is_not_a_visible_lower (test_temporal_revision.PerceptionRevisionTests.test_degenerate_hand_is_not_a_visible_lower) ... ok
+test_expression_requires_correct_session_and_nonfuture_timestamp (test_temporal_revision.PerceptionRevisionTests.test_expression_requires_correct_session_and_nonfuture_timestamp) ... ok
+test_head_error_is_preserved_when_eye_mesh_is_missing (test_temporal_revision.PerceptionRevisionTests.test_head_error_is_preserved_when_eye_mesh_is_missing) ... FAIL
+test_malformed_mesh_is_unknown (test_temporal_revision.PerceptionRevisionTests.test_malformed_mesh_is_unknown) ... ok
+test_missing_face_does_not_authorize_hand_absence_release (test_temporal_revision.PerceptionRevisionTests.test_missing_face_does_not_authorize_hand_absence_release) ... ok
+test_missing_hand_is_unknown_not_a_release (test_temporal_revision.PerceptionRevisionTests.test_missing_hand_is_unknown_not_a_release) ... ok
+test_multiple_faces_do_not_authorize_hand_absence_release (test_temporal_revision.PerceptionRevisionTests.test_multiple_faces_do_not_authorize_hand_absence_release) ... ok
+test_narrow_open_eyes_and_hysteresis (test_temporal_revision.PerceptionRevisionTests.test_narrow_open_eyes_and_hysteresis) ... ok
+test_present_but_ambiguous_hand_is_not_absent (test_temporal_revision.PerceptionRevisionTests.test_present_but_ambiguous_hand_is_not_absent) ... ok
+test_ambiguous_blink_does_not_pause_or_require_recovery (test_temporal_revision.TemporalRevisionTests.test_ambiguous_blink_does_not_pause_or_require_recovery) ... ok
+test_bad_clock_is_unknown (test_temporal_revision.TemporalRevisionTests.test_bad_clock_is_unknown) ... ok
+test_errors_bypass_visual_grace (test_temporal_revision.TemporalRevisionTests.test_errors_bypass_visual_grace) ... ok
+test_exact_half_second_closed_eyes_boundary (test_temporal_revision.TemporalRevisionTests.test_exact_half_second_closed_eyes_boundary) ... ok
+test_half_second_unknown_boundary_does_not_become_away (test_temporal_revision.TemporalRevisionTests.test_half_second_unknown_boundary_does_not_become_away) ... ok
+test_initial_unknown_is_not_assumed_attentive (test_temporal_revision.TemporalRevisionTests.test_initial_unknown_is_not_assumed_attentive) ... ok
+test_lesson_advances_during_short_blink (test_temporal_revision.TemporalRevisionTests.test_lesson_advances_during_short_blink) ... ok
+test_look_aside_has_same_grace (test_temporal_revision.TemporalRevisionTests.test_look_aside_has_same_grace) ... ok
+test_one_positive_frame_cannot_renew_grace_forever (test_temporal_revision.TemporalRevisionTests.test_one_positive_frame_cannot_renew_grace_forever) ... ok
+test_recovery_confirmation_freezes_negative_patience (test_temporal_revision.TemporalRevisionTests.test_recovery_confirmation_freezes_negative_patience) ... ok
+test_reliable_head_turn_works_without_eye_mesh (test_temporal_revision.TemporalRevisionTests.test_reliable_head_turn_works_without_eye_mesh) ... ok
+test_stale_data_never_get_extra_grace (test_temporal_revision.TemporalRevisionTests.test_stale_data_never_get_extra_grace) ... ok
+test_sustained_wink_is_unknown_after_grace (test_temporal_revision.TemporalRevisionTests.test_sustained_wink_is_unknown_after_grace) ... ok
+test_unknown_away_alternation_cannot_refresh_grace (test_temporal_revision.TemporalRevisionTests.test_unknown_away_alternation_cannot_refresh_grace) ... ok
+
+======================================================================
+FAIL: test_head_error_is_preserved_when_eye_mesh_is_missing (test_temporal_revision.PerceptionRevisionTests.test_head_error_is_preserved_when_eye_mesh_is_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alejandro/Alejandro/Robotica_Servicios/P2/tests/test_temporal_revision.py", line 210, in test_head_error_is_preserved_when_eye_mesh_is_missing
+    self.assertEqual(observation.reason,'inclinacion_excesiva')
+AssertionError: 'sin_malla_correspondiente' != 'inclinacion_excesiva'
+- sin_malla_correspondiente
++ inclinacion_excesiva
+
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.045s
+
+FAILED (failures=1)

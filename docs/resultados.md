@@ -105,3 +105,13 @@ Los registros, configuraciones, hashes de entradas y salidas se conservan en `re
 ```
 
 Queda pendiente repetir con Alejandro la secuencia descrita en [la prueba manual](prueba_manual.md#3-manos). Una oclusión de al menos un segundo también puede rearmar: la ausencia es una convención de interacción, no una prueba física de bajada. No se ha abierto su cámara, grabado el vídeo de entrega ni generado la memoria final.
+
+## Indicaciones según el motivo (22 de octubre de 2026)
+
+El mensaje genérico de espera se sustituye por una acción según el motivo técnico. `tutor/feedback.py` separa texto y decisión: no modifica paciencia, temporizadores ni estados. Las pérdidas breves que el filtro tolera conservan la lección. Si hay desatención fiable, el primer y segundo aviso mantienen su texto y añaden la corrección. Los descansos y finales conservan su mensaje. Una señal desconocida recibe ayuda para recuperar la medición, sin añadir un aviso de desatención.
+
+Antes del cambio se reprodujo con modelos sustituidos que `inclinacion_excesiva` quedaba reemplazado por `sin_malla_correspondiente`: la prueba falló y su salida se conserva en `resultados/mensajes_20261022/regresion_motivo_antes.txt`. Ahora `vision.py` conserva por separado `head_error` y `eye_error` y prioriza el fallo de cabeza, coherentemente con la fusión.
+
+Pasan 121 pruebas mediante `.venv-vision/bin/python -m unittest discover -s tests -v`; salida en `resultados/mensajes_20261022/regresion.txt`. Cubren la corrección de postura, acciones distintas por motivo, ausencia de acusación de cierre ante apertura ambigua, tolerancia temporal, conservación de avisos, descanso y finales, fallos técnicos y el espacio ocupado por los textos. `mensajes_simulados.json` conserva configuración, entradas y mensajes de ejemplo; son comprobaciones de selección de texto, no de precisión visual. La representación reconstruida con un fotograma del vídeo y señales simuladas se revisó visualmente para comprobar la legibilidad.
+
+La prueba de integración usa `./ejecutar.sh tutor --input video.mp4 --headless --max-seconds 3 --log resultados/mensajes_20261022/integracion_video.json`; terminó por el límite de entrada, con 30 observaciones, cuatro inferencias de expresión y cero errores. El JSON conserva comando, configuración, hash de entrada y resultado. La revisión de posturas reales con cámara sigue pendiente según la tabla 2 de [la prueba manual](prueba_manual.md#5-tutor-completo).

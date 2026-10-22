@@ -79,15 +79,22 @@ class Perception:
             obs.face=True; obs.bbox=boxes[index]
             keypoints=[(point.x*w,point.y*h) for point in accepted[index].keypoints]
             obs.head_front,metrics=head_geometry(keypoints,self.c); obs.metrics.update(metrics)
+            head_error=metrics.get('error')
+            if head_error: obs.metrics['head_error']=head_error
             meshes=[np.array([(point.x*w,point.y*h) for point in face]) for face in faces]
             mesh_boxes=[(p[:,0].min(),p[:,1].min(),p[:,0].max(),p[:,1].max()) for p in meshes]
             best=max(range(len(meshes)),key=lambda i:iou(obs.bbox,mesh_boxes[i])) if meshes else None
             if best is not None and iou(obs.bbox,mesh_boxes[best])>=0.2:
                 obs.eyes_open,obs.gaze_front,metrics=eye_geometry(meshes[best],self.c,self.previous_eyes_open)
                 self.previous_eyes_open=obs.eyes_open; obs.metrics.update(metrics)
+                eye_error=metrics.get('error')
             else:
-                obs.metrics['error']='sin_malla_correspondiente'; self.previous_eyes_open=None
-            obs.reason=obs.metrics.get('error','medicion_valida')
+                eye_error='sin_malla_correspondiente'; self.previous_eyes_open=None
+            if eye_error: obs.metrics['eye_error']=eye_error
+            # La fusión evalúa primero la cabeza: no ocultar su fallo con otro
+            # posterior de ojos. Conservamos ambos para explicar el diagnóstico.
+            obs.reason=head_error or eye_error or 'medicion_valida'
+            if obs.reason!='medicion_valida': obs.metrics['error']=obs.reason
             if len(boxes)==1:
                 # No detectar manos en una inferencia válida es distinto de no poder
                 # atribuirlas. Permite bajar fuera del encuadre sin fingir una bajada vista.

@@ -66,6 +66,20 @@ Antes puedes ejecutar `./ejecutar.sh tutor --test-sound`: deberías oír dos pit
 
 Tabla 1. Secuencias manuales previstas. Los tiempos de avisos se cuentan desde que la desatención ya está estable; hay demora adicional de muestreo y procesamiento. La tabla describe comportamiento esperado, no pruebas reales ya superadas.
 
+Las indicaciones se eligen en `tutor/feedback.py`, a partir del motivo que entrega el filtro. La tabla 2 relaciona las situaciones con su indicación. Prueba estas correcciones, manteniendo cada situación más de 0,5 s para superar la tolerancia:
+
+| Situación | Indicación esperada | Comprobación |
+|---|---|---|
+| Cabeza inclinada lateralmente más allá del umbral configurado (35° por defecto) | «Endereza un poco la cabeza para que pueda evaluar tu mirada.» | Motivo `inclinacion_excesiva`; volver a posición frontal debe recuperar la lección |
+| Rostro/ojos demasiado pequeños para medirlos | «Acerca un poco el rostro…» si aún detecta cara y entrega `ojos_pequenos` | Si pierde por completo la cara, debe pedir revisar el encuadre |
+| Sacar la cara del encuadre | Revisar el encuadre o volver a la posición de la cara seleccionada | Motivo `sin_cara_fiable` o `usuario_principal_perdido`; no castigar el tiempo sin datos |
+| No se localizan bien los ojos o iris | Mirar de frente y evitar taparlos | Indicación ligada a `sin_malla_correspondiente`, `malla_invalida` o `iris_no_fiable`, sin afirmar una causa concreta |
+| Ojos cerrados, cabeza o mirada desviadas de forma fiable | Indicación de abrir los ojos, orientar la cabeza o dirigir la mirada al frente | Si aparecen avisos progresivos, deben conservar su texto y añadir la acción |
+| Parpadeo breve con atención previamente confirmada | Se mantiene la frase de la lección | No debe aparecer una corrección fugaz dentro de la tolerancia |
+| Descanso o final mientras se pierde la cara | Se mantiene el mensaje de descanso o final | Las indicaciones de percepción no deben ocultar esos estados |
+
+Tabla 2. Revisión manual de mensajes según el motivo detectado. Son resultados esperados, no una medición de precisión de los detectores. Una mala lectura no demuestra por sí misma poca luz, uso de gafas ni cansancio.
+
 Al terminar, la ventana muestra el mensaje final unos tres segundos. `r` reinicia la sesión si lo pulsas antes de cerrar. Para comprobar cada final conviene iniciar una sesión nueva, sin acumular restos de una prueba anterior.
 
 ## 6. Casos adicionales del enunciado

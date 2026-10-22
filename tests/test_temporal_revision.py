@@ -2,7 +2,7 @@
 from dataclasses import replace
 from types import SimpleNamespace
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock,patch
 import numpy as np
 from tutor.config import Config
 from tutor.signals import Attention,Observation,Expression
@@ -202,6 +202,14 @@ class PerceptionRevisionTests(unittest.TestCase):
         p.face=Mock(); p.face.detect_for_video.return_value=SimpleNamespace(face_landmarks=[])
         p.hands=Mock(); p.hands.detect_for_video.return_value=SimpleNamespace(hand_landmarks=[])
         return p
+
+    def test_head_error_is_preserved_when_eye_mesh_is_missing(self):
+        p=self.fake_perception()
+        with patch('tutor.vision.head_geometry',return_value=(None,{'error':'inclinacion_excesiva','roll_deg':50.})):
+            observation,_=p.process(np.zeros((300,400,3),dtype=np.uint8),0.)
+        self.assertEqual(observation.reason,'inclinacion_excesiva')
+        self.assertEqual(observation.metrics['head_error'],'inclinacion_excesiva')
+        self.assertEqual(observation.metrics['eye_error'],'sin_malla_correspondiente')
 
     def test_missing_hand_is_unknown_not_a_release(self):
         p=self.fake_perception(); observation,_=p.process(np.zeros((300,400,3),dtype=np.uint8),0.)

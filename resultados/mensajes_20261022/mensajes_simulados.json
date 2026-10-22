@@ -1,0 +1,122 @@
+{
+  "config": {
+    "sample_s": 0.1,
+    "stale_s": 0.8,
+    "away_hold_s": 0.5,
+    "closed_hold_s": 0.5,
+    "unknown_hold_s": 0.5,
+    "attention_recover_s": 0.2,
+    "recover_s": 1.0,
+    "hand_hold_s": 0.5,
+    "hand_release_s": 0.5,
+    "hand_absent_release_s": 1.0,
+    "warning_s": 4.0,
+    "escalate_s": 6.0,
+    "finish_s": 8.0,
+    "phrase_s": 3.0,
+    "joke_after_s": 12.0,
+    "joke_window_s": 5.0,
+    "smile_hold_s": 0.4,
+    "feedback_s": 2.0,
+    "emotion_period_s": 0.8,
+    "emotion_stale_s": 2.5,
+    "happy_min": 0.55,
+    "ear_closed": 0.13,
+    "ear_open": 0.18,
+    "gaze_low": 0.3,
+    "gaze_high": 0.7,
+    "gaze_vertical_low": 0.15,
+    "gaze_vertical_high": 0.85,
+    "yaw_max": 0.23,
+    "pitch_low": 0.25,
+    "pitch_high": 0.78,
+    "roll_max_deg": 35.0,
+    "min_eye_px": 10.0,
+    "min_face_px": 65.0,
+    "min_hand_px": 20.0,
+    "face_confidence": 0.6,
+    "track_iou": 0.15,
+    "max_faces": 3,
+    "width": 640
+  },
+  "test_command": ".venv-vision/bin/python -m unittest discover -s tests -p test_feedback.py -v",
+  "note": "Catálogo de traducción directa de motivos a texto. Los motivos son entradas simuladas, no salidas de detección real.",
+  "scenarios": [
+    {
+      "reason": "inclinacion_excesiva",
+      "message": "Endereza un poco la cabeza para que pueda evaluar tu mirada."
+    },
+    {
+      "reason": "ojos_pequenos",
+      "message": "Acerca un poco el rostro a la cámara para que pueda distinguir los ojos."
+    },
+    {
+      "reason": "puntos_invalidos",
+      "message": "No consigo medir bien tu rostro. Colócate de frente y evita taparte la cara."
+    },
+    {
+      "reason": "geometria_degenerada",
+      "message": "No consigo medir la orientación de tu cabeza. Colócate de frente a la cámara."
+    },
+    {
+      "reason": "sin_cara",
+      "message": "Colócate frente a la cámara, con la cara completa dentro del encuadre."
+    },
+    {
+      "reason": "sin_cara_fiable",
+      "message": "No detecto bien tu cara. Revisa el encuadre y la iluminación."
+    },
+    {
+      "reason": "usuario_principal_perdido",
+      "message": "No localizo la cara seleccionada. Vuelve al encuadre; pulsa r si cambias de persona."
+    },
+    {
+      "reason": "sin_malla_correspondiente",
+      "message": "Veo tu cara, pero no localizo bien los ojos. Mira de frente y evita taparlos."
+    },
+    {
+      "reason": "malla_invalida",
+      "message": "No consigo medir bien tus ojos. Mira de frente y evita cubrirlos."
+    },
+    {
+      "reason": "guino_o_apertura_ambigua",
+      "message": "No distingo bien la apertura de tus ojos. Mantén el rostro visible frente a la cámara."
+    },
+    {
+      "reason": "iris_no_fiable",
+      "message": "No localizo bien tus iris. Mira de frente y evita cubrirte los ojos."
+    },
+    {
+      "reason": "cabeza_desviada",
+      "message": "Orienta la cabeza hacia la cámara para continuar con la lección."
+    },
+    {
+      "reason": "ojos_cerrados",
+      "message": "Detecto los ojos cerrados. Ábrelos y mira al frente para continuar."
+    },
+    {
+      "reason": "mirada_desviada",
+      "message": "Dirige la mirada hacia la cámara para continuar con la lección."
+    },
+    {
+      "reason": "confirmando_atencion",
+      "message": "Mantén la mirada al frente un momento para confirmar la señal."
+    },
+    {
+      "reason": "confirmando_desatencion",
+      "message": "Mantén el rostro y la mirada hacia la cámara mientras compruebo la señal."
+    },
+    {
+      "reason": "percepcion_caducada",
+      "message": "No llegan mediciones recientes. Comprueba que la cámara sigue entregando imágenes."
+    },
+    {
+      "reason": "observacion_desordenada",
+      "message": "Las mediciones han llegado fuera de orden. Espera a que se actualice la imagen."
+    },
+    {
+      "reason": "inicializando",
+      "message": "Estoy preparando los detectores. Espera un momento."
+    }
+  ]
+}
