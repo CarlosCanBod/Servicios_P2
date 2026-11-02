@@ -16,8 +16,10 @@ class PrimaryUser:
     def select(self, boxes):
         if not boxes: return None
         if self.box is None:
+            # Sin referencia anterior, empezamos por la cara más grande.
             index=max(range(len(boxes)),key=lambda i:(boxes[i][2]-boxes[i][0])*(boxes[i][3]-boxes[i][1]))
         else:
+            # IoU = intersección / unión de cajas; se evita saltar a una cara lejana.
             index=max(range(len(boxes)),key=lambda i:iou(boxes[i],self.box))
             if iou(boxes[index],self.box)<self.c.track_iou: return None
         self.box=boxes[index]
@@ -83,6 +85,7 @@ class Perception:
             if head_error: obs.metrics['head_error']=head_error
             meshes=[np.array([(point.x*w,point.y*h) for point in face]) for face in faces]
             mesh_boxes=[(p[:,0].min(),p[:,1].min(),p[:,0].max(),p[:,1].max()) for p in meshes]
+            # Asociar la malla a la cara elegida por solapamiento geométrico.
             best=max(range(len(meshes)),key=lambda i:iou(obs.bbox,mesh_boxes[i])) if meshes else None
             if best is not None and iou(obs.bbox,mesh_boxes[best])>=0.2:
                 obs.eyes_open,obs.gaze_front,metrics=eye_geometry(meshes[best],self.c,self.previous_eyes_open)
@@ -104,6 +107,8 @@ class Perception:
                 elif raised and all(v is False for v in raised): obs.hand_up=False
                 else: obs.hand_up=None
             else: obs.hand_up=None
+            # NumPy indexa [fila, columna] = [y, x]. El recorte BGR lo recibe
+            # DeepFace en otro proceso; no se envía el fotograma completo.
             x0,y0,x1,y1=obs.bbox
             crop=frame[y0:y1,x0:x1].copy()
         else:

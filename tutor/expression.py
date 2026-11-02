@@ -19,6 +19,8 @@ class ExpressionDetector:
         started=time.perf_counter()
         try:
             if crop is None or crop.size==0: raise ValueError('Recorte vacío')
+            # skip evita volver a detectar cara: el recorte seleccionado ya
+            # procede de MediaPipe. El fondo no se analiza como cara completa.
             result=self.deepface.analyze(crop,actions=['emotion'],detector_backend='skip',
                 enforce_detection=False,align=False,silent=True)[0]
             # analyze devuelve puntuaciones normalizadas a 100, no exactitud de la red.

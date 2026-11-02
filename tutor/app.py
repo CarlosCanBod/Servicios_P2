@@ -103,6 +103,8 @@ def main(argv=None):
                     if message not in errors: errors.append(message)
                     emotion.close(); emotion=None; expression=None
             status,reason=af.update(obs,now)
+            # Una expresión de otra sesión, caducada o sin cara actual no decide
+            # la reacción al chiste, aunque aún quede una etiqueta en memoria.
             fresh_exp=expression if (expression and expression.is_fresh(now,config.emotion_stale_s,user_id)
                 and obs and obs.face and 0<=now-obs.time_s<=config.stale_s) else None
             # Solo las nuevas observaciones añaden tiempo al gesto; repetir una salida no lo hace.

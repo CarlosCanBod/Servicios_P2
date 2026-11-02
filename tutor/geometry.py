@@ -24,6 +24,8 @@ def head_geometry(points, c):
     eyes=sorted(p[:2],key=lambda point:point[0]); left,right=eyes
     delta=right-left; distance=float(np.linalg.norm(delta))
     if distance<c.min_eye_px: return None, {'error':'ojos_pequenos'}
+    # Construir ejes unitarios a partir de los ojos evita confundir inclinación
+    # lateral con desplazamiento de nariz/boca. La imagen tiene Y hacia abajo.
     horizontal=delta/distance; vertical=np.array([-horizontal[1],horizontal[0]])
     center=(left+right)/2; nose=p[2]-center; mouth=p[3]-center
     roll=math.degrees(math.atan2(delta[1],delta[0]))
@@ -50,6 +52,7 @@ def eye_geometry(mesh, c, previous_open=None):
         a,b,d,e,f,g=p[list(indices)]
         width=float(np.linalg.norm(a-e))
         if width<c.min_eye_px: return None,None,{'error':'ojos_pequenos'}
+        # Dos alturas del párpado divididas por dos veces la anchura: EAR sin unidades.
         ears.append(float((np.linalg.norm(b-g)+np.linalg.norm(d-f))/(2*width)))
         corners=sorted((a,e),key=lambda point:point[0]); axis=corners[1]-corners[0]
         horizontal.append(float((p[iris]-corners[0])@axis/(axis@axis)))
@@ -91,6 +94,7 @@ def raised_hand(points, bbox, min_size_px=20.):
     x0,y0,x1,y1=bbox; width=x1-x0; height=y1-y0
     palm=p[[0,5,9,13,17]].mean(axis=0)
     near=(x0-1.3*width<=palm[0]<=x1+1.3*width)
+    # Altura relativa al rectángulo de cara; no se calcula la altura del hombro.
     above=palm[1]<y0+0.65*height
     extended=0
     for mcp,pip,tip in ((5,6,8),(9,10,12),(13,14,16),(17,18,20)):

@@ -24,6 +24,8 @@ def offer(queue, value):
 
 
 def vision_worker(config, inbox, outbox):
+    # Este proceso carga MediaPipe una vez y devuelve observación + recorte.
+    # Si una imagen falla, comunica incertidumbre sin inventar desatención.
     from .vision import Perception
     perception=None
     try:

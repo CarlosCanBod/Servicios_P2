@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @dataclass(frozen=True)
 class Config:
+    # Los sufijos _s, _px y _deg indican segundos, píxeles y grados. Las
+    # razones geométricas restantes son adimensionales, no ángulos reales.
     sample_s: float = 0.10
     stale_s: float = 0.8
     away_hold_s: float = 0.5
@@ -48,6 +50,7 @@ class Config:
     width: int = 640
 
     def validate(self):
+        # Fallar al arrancar evita pruebas engañosas con parámetros imposibles.
         for field in fields(self):
             value = getattr(self, field.name)
             if not isinstance(value, (float, int)) or isinstance(value,bool) or not math.isfinite(value) or value <= 0:

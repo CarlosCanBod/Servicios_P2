@@ -23,6 +23,8 @@ class Dialogue:
     def __init__(self, config, phrases):
         if not phrases: raise ValueError('La lección no contiene frases')
         self.c=config; self.phrases=phrases; self.state=State.INITIAL
+        # lesson_s mide contenido efectivo; bad_s, desatención en el nivel actual.
+        # recovery_s y joke_s acumulan atención continua y ventana del chiste.
         self.lesson_s=0.; self.bad_s=0.; self.recovery_s=0.; self.joke_s=0.
         self.last_time=None; self.previous_attention=Attention.UNKNOWN
         self.message=phrases[0]; self.message_until=0.; self.events=[]
@@ -33,6 +35,8 @@ class Dialogue:
         self.reaction_after=None
 
     def transition(self, state, now, reason):
+        # Cada nivel comienza con paciencia nueva; el evento permite solicitar
+        # sonido solo cuando corresponde a uno de los avisos configurados.
         old=self.state; self.state=state; self.bad_s=0.; self.recovery_s=0.
         self.message=MESSAGES[state]; self.message_until=now+self.c.feedback_s
         self.events.append({'time_s':now,'from':old.value,'to':state.value,'reason':reason,'message':self.message})
@@ -52,6 +56,8 @@ class Dialogue:
         if after_s is not None: self.reaction_after=after_s
 
     def _smile(self, expression, now):
+        # La puntuación happy es una salida del clasificador, entre 0 y 1.
+        # Se exigen resultados posteriores al chiste, frescos y de momentos distintos.
         if (expression is None or not expression.is_fresh(now,self.c.emotion_stale_s)
             or expression.time_s<=max(self.joke_started,self.reaction_after)):
             self.smile_since=None
@@ -75,6 +81,8 @@ class Dialogue:
             raise ValueError('El reloj debe ser finito y no retroceder')
         dt=0. if self.last_time is None else now-self.last_time
         self.last_time=now
+        # No imputamos el intervalo completo a un estado nuevo ni a un salto largo:
+        # desconocemos cuándo cambió realmente la percepción durante ese hueco.
         valid_dt=dt if attention==self.previous_attention and dt<=self.c.stale_s else 0.
         if dt>self.c.stale_s:
             self.recovery_s=0.; self._reset_expression_evidence(now)
@@ -99,6 +107,7 @@ class Dialogue:
         if attention==Attention.AWAY:
             self.recovery_s=0.; self._reset_expression_evidence(now); self.bad_s+=valid_dt
             # Cerrar los ojos o girarse también tiene prioridad durante el chiste.
+            # Son límites por nivel: por defecto 4 s, después 6 s y después 8 s.
             limit={State.INITIAL:self.c.warning_s,State.EMOTION:self.c.warning_s,
                    State.MILD:self.c.escalate_s,State.CLEAR:self.c.finish_s}[self.state]
             if self.bad_s>=limit-1e-9:
@@ -115,6 +124,7 @@ class Dialogue:
                 return
         if self.state in (State.MILD,State.CLEAR): return
         if self.state==State.EMOTION:
+            # La ventana solo avanza mientras existe atención evaluable.
             self.joke_s+=valid_dt
             if self._smile(expression,now):
                 # El diagrama pide «sonríe», no demostrar un cambio de emoción interna.

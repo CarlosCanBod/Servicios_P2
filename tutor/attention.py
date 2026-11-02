@@ -13,6 +13,8 @@ class AttentionFilter:
 
     @staticmethod
     def classify(obs):
+        # Orden de decisión: cara, cabeza, apertura y mirada. None conserva
+        # incertidumbre; solo una señal negativa fiable acusa desatención.
         if not obs.face: return Attention.UNKNOWN,obs.reason
         if obs.head_front is False:
             # Una cabeza desviada fiable basta aunque la malla de ojos falle al girar.
@@ -25,6 +27,8 @@ class AttentionFilter:
         return Attention.ATTENTIVE,'frontal'
 
     def update(self, obs, now):
+        # now y time_s están en segundos de sesión. Una salida vieja o futura
+        # no debe mantener la última conclusión durante una avería de cámara.
         if (obs is None or not math.isfinite(now) or not math.isfinite(obs.time_s)
             or not 0<=now-obs.time_s<=self.c.stale_s):
             self.reset()
