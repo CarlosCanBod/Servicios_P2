@@ -8,7 +8,7 @@ from tutor.config import Config
 from tutor.signals import Attention,Observation,Expression
 from tutor.attention import AttentionFilter,HandEdge
 from tutor.dialogue import Dialogue,State
-from tutor.geometry import eye_geometry,raised_hand
+from tutor.geometry import eye_geometry,raised_hand,hand_geometry
 from tutor.vision import Perception,PrimaryUser
 
 A=Attention.ATTENTIVE; B=Attention.AWAY; U=Attention.UNKNOWN
@@ -245,6 +245,38 @@ class PerceptionRevisionTests(unittest.TestCase):
         self.assertIsNone(raised_hand(self.hand(curled=True),(0,120,100,220)))
         self.assertTrue(raised_hand(self.hand(),(0,120,100,220)))
         self.assertFalse(raised_hand(self.hand(lowered=True),(0,120,100,220)))
+
+    def test_fingertips_at_face_allow_raised_hand_with_low_palm(self):
+        # Reproduce con puntos artificiales una mano abierta junto al rostro:
+        # la palma queda bajo la caja pero las puntas quedan a su altura.
+        hand=self.hand(); hand[:,1]+=100
+        result,metrics=hand_geometry(hand,(0,120,100,220))
+        self.assertTrue(result); self.assertGreater(metrics['palm_rel'],.75)
+        self.assertLess(metrics['tip_rel'],.65); self.assertGreaterEqual(metrics['upwards'],3)
+
+    def test_fingertips_hysteresis_prevents_a_held_hand_from_rearming(self):
+        hand=self.hand(); hand[:,1]+=135
+        result,metrics=hand_geometry(hand,(0,120,100,220))
+        self.assertIsNone(result); self.assertEqual(metrics['reason'],'banda_ambigua')
+        hand[:,1]+=15
+        self.assertFalse(hand_geometry(hand,(0,120,100,220))[0])
+
+    def test_fingertip_jitter_does_not_generate_a_second_event(self):
+        raised=self.hand(); raised[:,1]+=100
+        band=self.hand(); band[:,1]+=135
+        h=HandEdge(C); box=(0,120,100,220)
+        self.assertFalse(h.update(raised_hand(raised,box),0.))
+        self.assertTrue(h.update(raised_hand(raised,box),.5))
+        for t in (.6,.8): self.assertFalse(h.update(raised_hand(band,box),t))
+        self.assertFalse(h.update(raised_hand(raised,box),.9))
+        self.assertFalse(h.update(raised_hand(raised,box),1.5))
+
+    def test_low_hand_with_fingers_pointing_sideways_does_not_request_break(self):
+        hand=self.hand(); hand[:,1]+=100
+        for mcp,pip,tip in ((5,6,8),(9,10,12),(13,14,16),(17,18,20)):
+            hand[pip]=hand[mcp]+(20,0); hand[tip]=hand[mcp]+(40,0)
+        result,metrics=hand_geometry(hand,(0,120,100,220))
+        self.assertFalse(result); self.assertEqual(metrics['upwards'],0)
 
     def test_narrow_open_eyes_and_hysteresis(self):
         from test_geometry import EyeTests

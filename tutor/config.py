@@ -20,6 +20,8 @@ class Config:
     hand_hold_s: float = 0.5
     hand_release_s: float = 0.5
     hand_absent_release_s: float = 1.0
+    hand_raise_ratio: float = 0.65
+    hand_lower_ratio: float = 0.75
     warning_s: float = 4.0
     escalate_s: float = 6.0
     finish_s: float = 8.0
@@ -57,7 +59,7 @@ class Config:
                 raise ValueError(f'{field.name}: debe ser un número positivo y finito')
         for name in ('max_faces','width'):
             if type(getattr(self,name)) is not int: raise ValueError(f'{name}: debe ser entero')
-        for lo, hi in (('ear_closed','ear_open'),('gaze_low','gaze_high'),('pitch_low','pitch_high'),('gaze_vertical_low','gaze_vertical_high')):
+        for lo, hi in (('ear_closed','ear_open'),('gaze_low','gaze_high'),('pitch_low','pitch_high'),('gaze_vertical_low','gaze_vertical_high'),('hand_raise_ratio','hand_lower_ratio')):
             if not getattr(self,lo) < getattr(self,hi): raise ValueError(f'{lo} debe ser menor que {hi}')
         for name in ('gaze_high','gaze_vertical_high','happy_min','face_confidence','track_iou','ear_open'):
             if getattr(self,name)>1: raise ValueError(f'{name}: fuera de [0,1]')

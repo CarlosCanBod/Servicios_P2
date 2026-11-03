@@ -24,6 +24,16 @@ def render(frame, obs, attention, reason, dialogue, expression, error=None, hand
     title=ImageFont.truetype(str(FONT),19) if FONT.exists() else font
     if obs and obs.bbox:
         draw.rectangle(obs.bbox,outline=(100,235,155),width=2)
+        for index,hand in enumerate(obs.metrics.get('hand_debug',[]),1):
+            # P = centro de palma; D = mediana de puntas de dedos extendidos.
+            # La línea corresponde al umbral relativo a la caja de cara.
+            for key,letter,color in (('palm_xy','P',(255,210,80)),('tip_xy','D',(80,220,255))):
+                point=hand.get(key)
+                if point:
+                    x,y=point; draw.ellipse((x-4,y-4,x+4,y+4),fill=color)
+                    draw.text((x+6,y-10),f'{letter}{index}',font=font,fill=color)
+            y0=obs.bbox[1]+obs.metrics.get('hand_raise_ratio',.65)*(obs.bbox[3]-obs.bbox[1])
+            draw.line((0,y0,w,y0),fill=(80,180,210),width=1)
     if obs is None:
         lines=['Esperando percepción...']
     else:
@@ -34,9 +44,17 @@ def render(frame, obs, attention, reason, dialogue, expression, error=None, hand
             f'Mano: {hand_description(obs)}',f'Visión: {obs.latency_ms:.1f} ms']
         if hand_ready is not None:
             lines.append('Gesto: listo para otra subida' if hand_ready else 'Gesto: baja la mano para rearmar')
+        hands=obs.metrics.get('hand_debug',[])
+        for index,data in enumerate(hands,1):
+            if 'palm_rel' not in data: continue
+            tips=data.get('tip_rel')
+            lines.append(f"Mano {index}: P {data['palm_rel']:.2f} | D {tips:.2f}" if tips is not None
+                         else f"Mano {index}: P {data['palm_rel']:.2f} | D --")
+            lines.append(f"Mano {index}: dedos {data['extended']}/4")
         for key in ('roll_deg','yaw_ratio','pitch_ratio','ear_right','ear_left'):
             if key in obs.metrics: lines.append(f'{key}: {obs.metrics[key]:.3f}')
-    for i,line in enumerate(lines): draw.text((w+12,10+i*23),line,font=font,fill=(224,230,240))
+    for i,line in enumerate(lines):
+        if 10+i*23+20<=h: draw.text((w+12,10+i*23),line,font=font,fill=(224,230,240))
     y=h+12
     draw.text((16,y),f'Estado: {dialogue.state.value} | Lección: {dialogue.lesson_s:.1f} s',font=title,fill=(115,230,205))
     y+=32

@@ -7,6 +7,8 @@
   "hand_hold_s": 0.5,
   "hand_release_s": 0.5,
   "hand_absent_release_s": 1.0,
+  "hand_raise_ratio": 0.65,
+  "hand_lower_ratio": 0.75,
   "warning_s": 4.0,
   "escalate_s": 6.0,
   "finish_s": 8.0,

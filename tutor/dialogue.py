@@ -59,8 +59,11 @@ class Dialogue:
         # La puntuación happy es una salida del clasificador, entre 0 y 1.
         # Se exigen resultados posteriores al chiste, frescos y de momentos distintos.
         if (expression is None or not expression.is_fresh(now,self.c.emotion_stale_s)
-            or expression.time_s<=max(self.joke_started,self.reaction_after)):
-            self.smile_since=None
+            or expression.time_s<=max(self.joke_started,self.reaction_after)
+            or 'happy' not in expression.scores):
+            # Sin datos actuales de felicidad no podemos concluir que no hubo
+            # sonrisa. Tampoco conservamos evidencia negativa anterior al fallo.
+            self._reset_expression_evidence()
             return False
         if self.last_expression_time is not None:
             # Repetir en pantalla la misma inferencia no demuestra una sonrisa sostenida.

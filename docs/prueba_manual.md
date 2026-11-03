@@ -28,7 +28,11 @@ Si tienes gafas, repite sin ellas y con ellas bajo la misma luz, si es posible. 
 
 Ejecuta `./ejecutar.sh manos --input 0`. Mete una mano abierta en el encuadre y comprueba que aparecen 21 puntos. Prueba ambas manos, un puño, una mano parcialmente oculta y la mano fuera de imagen. Este visor solo verifica el detector; no pide descansos.
 
-En el tutor, una petición requiere palma por encima de aproximadamente el 65 % de la altura del rectángulo de cara, proximidad horizontal a la cara y tres dedos extendidos. Es una aproximación de petición visible; sin detector de cuerpo no se verifica una elevación respecto al hombro. Está en `raised_hand`, en `tutor/geometry.py`.
+En el tutor, una petición requiere proximidad horizontal a la cara y tres dedos extendidos. Se admite la palma por encima del 65 % de la altura de la caja de cara o, si la palma queda más baja, que al menos tres dedos apunten hacia arriba y sus puntas lleguen a esa altura. Es una aproximación de petición visible; sin detector de cuerpo no se verifica una elevación respecto al hombro. Está en `hand_geometry`, en `tutor/geometry.py`.
+
+Con una mano detectada, el vídeo muestra `P1` en la palma, `D1` en la mediana de las puntas de los dedos orientados hacia arriba y una línea horizontal de referencia; para una segunda mano se usan `P2` y `D2`. `D1` solo aparece si hay al menos tres dedos extendidos hacia arriba. El panel indica los valores relativos de las manos detectadas cuando hay espacio: 0 corresponde al borde superior de la cara y 1 al inferior; valores menores están más arriba. El umbral de subida es `hand_raise_ratio=0.65` y el de bajada `hand_lower_ratio=0.75`. La franja entre ambos mantiene el gesto como ambiguo cuando corresponde, para evitar rearmes por oscilaciones.
+
+Para comprobar el problema comunicado, coloca la palma junto a la cara con los dedos abiertos y hacia arriba. Comprueba si aparecen los puntos y si el panel cambia a «elevada». Baja la mano y espera a «listo para otra subida»; después repite el gesto durante al menos 0,5 s. Los puntos son diagnósticos y las mediciones numéricas se guardan en el registro local de sesión; no se guardan imágenes en ese registro.
 
 Para rearmar la petición puedes bajar la mano dentro del encuadre, por debajo del 75 % de la altura del rectángulo de cara, durante al menos 0,5 s. También puedes bajarla fuera de la imagen: mantén la cara visible y espera al menos 1 s sin manos detectadas, hasta que el panel indique «Gesto: listo para otra subida». Una subida nueva de 0,5 s permite continuar. Los tiempos están en `hand_release_s`, `hand_absent_release_s` y `hand_hold_s` de `config.json`.
 
@@ -54,7 +58,7 @@ Antes puedes ejecutar `./ejecutar.sh tutor --test-sound`: deberías oír dos pit
 | Seguir desatendiendo | Tras 6 s más, segundo aviso; tras 8 s más, final malo | `Dialogue` |
 | Recuperar mirada frontal tras una pausa real | Confirmación visual de 0,2 s; en estados molestos se exige después 1 s continuo por nivel; un vistazo más corto no borra paciencia | `AttentionFilter`, `Dialogue` |
 | Cara fuera de imagen o medida inválida persistente | Tras la tolerancia de 0,5 s, desconocida: se congelan avance y paciencia. Un fallo técnico o dato caducado se invalida directamente | `AttentionFilter`, `Dialogue` |
-| Mano abierta elevada durante 0,5 s | Descanso; tiene prioridad sobre los avisos | `raised_hand`, `HandEdge`, `Dialogue` |
+| Mano abierta elevada durante 0,5 s | Descanso; tiene prioridad sobre los avisos | `hand_geometry`, `HandEdge`, `Dialogue` |
 | Mantener mano arriba | Sigue en descanso; no genera eventos repetidos | `HandEdge` |
 | Bajar mano visible al menos 0,5 s, o fuera de imagen al menos 1 s con cara visible; volver a subirla 0,5 s | El panel confirma el rearme y la nueva subida reanuda el estado anterior | `HandEdge`, `Dialogue` |
 | Mano no detectada brevemente, gesto ambiguo o pérdida de cara | No rearma por ese intervalo; permanecer sin mano tampoco reanuda por sí solo | `Perception`, `HandEdge` |

@@ -66,7 +66,8 @@ class PrimaryTests(unittest.TestCase):
 
 class ConfigTests(unittest.TestCase):
     def test_invalid_values(self):
-        for kwargs in ({'sample_s':0},{'width':640.5},{'ear_open':.1},{'gaze_high':1.5},{'warning_s':float('nan')}):
+        for kwargs in ({'sample_s':0},{'width':640.5},{'ear_open':.1},{'gaze_high':1.5},{'warning_s':float('nan')},
+                       {'hand_raise_ratio':.8,'hand_lower_ratio':.7}):
             with self.subTest(kwargs=kwargs):
                 with self.assertRaises(ValueError): replace(C,**kwargs).validate()
 

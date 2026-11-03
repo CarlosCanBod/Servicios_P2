@@ -1,6 +1,6 @@
 # P2 · Tutor visual
 
-Base de trabajo para probar con cámara. La memoria, el screencast de 2 minutos y el ZIP se prepararán después de validar la aplicación con el equipo.
+Aplicación de la práctica P2 y material de reproducción. La memoria final está en `output/pdf/Memoria_P2.pdf` y su texto editable en `memoria/memoria.md`. El vídeo de demostración y el ZIP de entrega se conservan localmente.
 
 Equipo: Alejandro Lavandeira Casais, Carlos Adrián Cancela Bodlak y Yago Martínez Pena.
 
@@ -88,6 +88,8 @@ Los umbrales de apertura ocular se han reducido: `ear_open=0.18` y `ear_closed=0
 La confirmación visual de atención dura 0,2 s (`attention_recover_s`); volver de un estado molesto exige después 1 s continuo por nivel (`recover_s`). Un vistazo fugaz no borra la paciencia acumulada. Durante «Como iba diciendo…» no se consume tiempo de frases que no están visibles. La revisión completa, las pruebas y los límites pendientes están en [la revisión de lógica](docs/revision_logica.md).
 
 Para el descanso, mantén una mano abierta elevada 0,5 s. Para continuar, bájala y espera «Gesto: listo para otra subida» antes de elevarla otros 0,5 s. El rearme admite una bajada visible de 0,5 s o un segundo sin manos detectadas con una única cara principal visible. «Mano: no detectada» se distingue de una señal no evaluable. Perder brevemente la mano, mantenerla arriba o un gesto ambiguo no generan otra petición. El procedimiento y la limitación ante oclusiones largas están en [la prueba manual](docs/prueba_manual.md#3-manos).
+
+El gesto admite una palma más baja si al menos tres dedos extendidos apuntan hacia arriba y llegan a la zona alta de la cara. Para diagnosticarlo, el tutor dibuja `P1` en la palma y `D1` en las puntas de la primera mano, además de una línea de referencia; los límites se ajustan con `hand_raise_ratio` y `hand_lower_ratio`. Alejandro ha confirmado que la pausa y la reanudación funcionan tras el ajuste; no se ha medido una tasa de acierto.
 
 Si la percepción no es evaluable, el tutor muestra una indicación según el motivo: enderezar la cabeza, acercar el rostro, volver al encuadre o comprobar la cámara. No se presupone cansancio, mala iluminación ni otra causa que no se haya medido. La tolerancia al parpadeo conserva el contenido; los avisos por desatención fiable añaden la corrección correspondiente. Descansos y finales conservan su mensaje.
 

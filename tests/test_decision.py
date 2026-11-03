@@ -120,6 +120,20 @@ class DialogueTests(unittest.TestCase):
         d=Dialogue(c,['uno','dos','tres'])
         for i in range(10): d.update(i*.1,A,expression=Expression(i*.1,0,error='modelo roto'))
         self.assertEqual(d.state,State.INITIAL)
+    def test_missing_happiness_does_not_penalize(self):
+        c=replace(C,joke_after_s=.3,joke_window_s=.8,smile_hold_s=.2,phrase_s=10.)
+        d=Dialogue(c,['frase'])
+        for i in range(18):
+            t=i*.1; d.update(t,A,expression=Expression(t,0,{'neutral':1.},'neutral'))
+        self.assertEqual(d.state,State.INITIAL)
+    def test_model_failure_after_negative_samples_does_not_penalize(self):
+        c=replace(C,joke_after_s=.3,joke_window_s=.8,smile_hold_s=.2,phrase_s=10.)
+        d=Dialogue(c,['frase'])
+        for i in range(20):
+            t=i*.1
+            exp=Expression(t,0,{'happy':.1},'neutral') if t<.8 else Expression(t,0,error='fallo controlado')
+            d.update(t,A,expression=exp)
+        self.assertEqual(d.state,State.INITIAL)
     def test_expression_before_joke_not_reaction(self):
         c=replace(C,joke_after_s=.3,joke_window_s=.5)
         d=Dialogue(c,['uno','dos','tres'])

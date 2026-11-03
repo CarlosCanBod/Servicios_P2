@@ -1,0 +1,18 @@
+{
+  "pruebas": {
+    "comando": ".venv-vision/bin/python -m unittest discover -s tests -v",
+    "cantidad": 126,
+    "resultado": "OK",
+    "archivo": "regresion.txt"
+  },
+  "integracion": "integracion_video.json",
+  "entrada": "video.mp4",
+  "observaciones": 96,
+  "expresiones": 12,
+  "errores": 0,
+  "pdf": "output/pdf/Memoria_P2.pdf",
+  "sha256": "6f3dd6c12cf7848b3e52e9f749844bfda6ec2c33bf763a7c703a3ae6a6131cb4",
+  "paginas": 10,
+  "comprobacion_manual": "El equipo comunicó pausa y reanudación con mano, funcionamiento con gafas, detención con ojos cerrados e inclinación excesiva y guiño indeterminado; iluminación influyente. Sin protocolo ni tasa de acierto; varios usuarios no probados.",
+  "revision_20261103": "Memoria revisada; pruebas e integración anteriores conservadas como registro histórico."
+}

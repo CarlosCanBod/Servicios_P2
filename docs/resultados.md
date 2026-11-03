@@ -1,5 +1,7 @@
 # Comprobaciones realizadas y pendientes
 
+Actualización del 2 de noviembre: Alejandro confirmó que la pausa y reanudación con la mano funcionan tras el último ajuste. Se ha preparado la memoria; las notas anteriores que sitúan su redacción en el futuro se conservan como historial.
+
 Se trabaja en `AlejandroLavandeira`, desde el main verificado a6e48f533f0402476f3e62cefa17db8fcc41af10. Los originales de P2 se verificaron por SHA-256 sin diferencias. El trabajo se comparte mediante un commit en esta rama para las pruebas del equipo. No se modifica P1 ni main y no se crea una PR. La memoria PDF y el vídeo de 2 minutos se posponen por instrucción de Alejandro.
 
 ## Instalación
@@ -115,3 +117,20 @@ Antes del cambio se reprodujo con modelos sustituidos que `inclinacion_excesiva`
 Pasan 121 pruebas mediante `.venv-vision/bin/python -m unittest discover -s tests -v`; salida en `resultados/mensajes_20261022/regresion.txt`. Cubren la corrección de postura, acciones distintas por motivo, ausencia de acusación de cierre ante apertura ambigua, tolerancia temporal, conservación de avisos, descanso y finales, fallos técnicos y el espacio ocupado por los textos. `mensajes_simulados.json` conserva configuración, entradas y mensajes de ejemplo; son comprobaciones de selección de texto, no de precisión visual. La representación reconstruida con un fotograma del vídeo y señales simuladas se revisó visualmente para comprobar la legibilidad.
 
 La prueba de integración usa `./ejecutar.sh tutor --input video.mp4 --headless --max-seconds 3 --log resultados/mensajes_20261022/integracion_video.json`; terminó por el límite de entrada, con 30 observaciones, cuatro inferencias de expresión y cero errores. El JSON conserva comando, configuración, hash de entrada y resultado. La revisión de posturas reales con cámara sigue pendiente según la tabla 2 de [la prueba manual](prueba_manual.md#5-tutor-completo).
+
+
+## Ajuste de mano levantada (2 de noviembre de 2026)
+
+Alejandro informó de que una mano levantada aparecía como «bajada visible». La sesión local disponible mostraba una mano detectada y clasificada como bajada, pero no guardaba los puntos de la mano ni imágenes; por ello no es posible atribuir esa clasificación a una postura o iluminación concreta. No se copia aquí la sesión personal.
+
+La regla anterior solo aceptaba una palma alta. Con puntos artificiales, una mano abierta con la palma por debajo de la cara y las puntas junto a ella se clasificaba como bajada. Ahora se admite también si al menos tres dedos extendidos apuntan hacia arriba y alcanzan el umbral de subida respecto a la cara. Se conservan la banda ambigua y el rearme temporal. Las alturas relativas se configuran con `hand_raise_ratio` y `hand_lower_ratio`. El panel y la imagen muestran marcadores de palma y puntas; las métricas numéricas se guardan en el registro local, sin fotogramas.
+
+Comando: `.venv-vision/bin/python -m unittest discover -s tests -v`. Resultado: 126 pruebas superadas, incluidas geometría y pausa/reanudación con puntos simulados y oscilación en la banda. Comando: `.venv-vision/bin/python scripts/diagnose_hands.py --output resultados/manos_20261102/imagen.json`; la imagen oficial da dos manos de 21 puntos y una señal elevada. Comando: `./ejecutar.sh tutor --input video.mp4 --headless --no-emotion --max-seconds 2 --log resultados/manos_20261102/integracion_video.json`; produjo 20 observaciones y cero errores. Los registros y la configuración están en `resultados/manos_20261102/`. El vídeo no contiene una demostración de pausa/reanudación.
+
+Alejandro confirmó posteriormente que la pausa y la reanudación con la mano funcionan tras este ajuste. Es una comprobación cualitativa comunicada por el usuario: no disponemos de un protocolo ni una tasa de acierto. La regla puede aumentar la sensibilidad a una mano abierta cerca de la cara incluso si no pretende pedir descanso.
+
+## Ampliación de la memoria y observaciones del equipo
+
+Al revisar la memoria, el equipo comunicó estas observaciones cualitativas: cerrar los ojos y una inclinación excesiva detuvieron el avance; un guiño produjo una señal dudosa que también lo detuvo; con las gafas utilizadas el sistema funcionó correctamente; y la iluminación influyó de manera apreciable. No se realizó una prueba real con varios usuarios. No se comunicaron un protocolo, número de intentos, condiciones de luz cuantificadas ni tasas de acierto, por lo que no se atribuyen cifras a estas observaciones.
+
+La memoria ampliada explica las condiciones y salidas de los siete estados, los umbrales, las fórmulas de orientación y apertura ocular, la regla de mano y la clasificación de expresión. Contiene tres figuras esquemáticas y cinco tablas con pies; ocupa 11 páginas. Su fuente editable es `memoria/memoria.md` y el PDF generado es `output/pdf/Memoria_P2.pdf`.

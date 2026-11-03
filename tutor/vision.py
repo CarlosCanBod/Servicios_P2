@@ -2,7 +2,7 @@
 import time
 from contextlib import ExitStack
 from .config import ROOT
-from .geometry import head_geometry, eye_geometry, raised_hand, iou
+from .geometry import head_geometry, eye_geometry, hand_geometry, iou
 from .signals import Observation
 
 class PrimaryUser:
@@ -102,7 +102,12 @@ class Perception:
                 # No detectar manos en una inferencia válida es distinto de no poder
                 # atribuirlas. Permite bajar fuera del encuadre sin fingir una bajada vista.
                 obs.hand_present=bool(hands)
-                raised=[raised_hand([(p.x*w,p.y*h) for p in hand],obs.bbox,self.c.min_hand_px) for hand in hands]
+                results=[hand_geometry([(p.x*w,p.y*h) for p in hand],obs.bbox,self.c.min_hand_px,
+                    self.c.hand_raise_ratio,self.c.hand_lower_ratio) for hand in hands]
+                raised=[result[0] for result in results]
+                # Métricas numéricas para diagnosticar el gesto sin guardar imágenes.
+                obs.metrics['hand_debug']=[result[1] for result in results]
+                obs.metrics['hand_raise_ratio']=self.c.hand_raise_ratio
                 if any(v is True for v in raised): obs.hand_up=True
                 elif raised and all(v is False for v in raised): obs.hand_up=False
                 else: obs.hand_up=None

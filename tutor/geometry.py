@@ -82,30 +82,51 @@ def eye_geometry(mesh, c, previous_open=None):
     return True,gaze,metrics
 
 
-def raised_hand(points, bbox, min_size_px=20.):
-    """True: petición; False: mano baja visible; None: gesto ambiguo o no evaluable.
+def hand_geometry(points, bbox, min_size_px=20., raise_ratio=0.65, lower_ratio=0.75):
+    """Devuelve gesto y diagnóstico: True subida, False bajada visible, None ambiguo.
 
     Solo se asocia por proximidad a una cara, no por identidad. Con varias caras
     la percepción inhibe esta señal para no atribuir la mano de otro alumno.
     """
     p=np.asarray(points,dtype=float)
-    if p.shape!=(21,2) or not np.isfinite(p).all(): return None
-    if max(float(np.ptp(p[:,0])),float(np.ptp(p[:,1])))<min_size_px: return None
+    if p.shape!=(21,2) or not np.isfinite(p).all(): return None,{'reason':'puntos_invalidos'}
+    if max(float(np.ptp(p[:,0])),float(np.ptp(p[:,1])))<min_size_px: return None,{'reason':'mano_pequena'}
     x0,y0,x1,y1=bbox; width=x1-x0; height=y1-y0
+    if width<=0 or height<=0: return None,{'reason':'cara_invalida'}
     palm=p[[0,5,9,13,17]].mean(axis=0)
     near=(x0-1.3*width<=palm[0]<=x1+1.3*width)
     # Altura relativa al rectángulo de cara; no se calcula la altura del hombro.
-    above=palm[1]<y0+0.65*height
-    extended=0
+    palm_rel=float((palm[1]-y0)/height)
+    extended=0; upwards=[]
     for mcp,pip,tip in ((5,6,8),(9,10,12),(13,14,16),(17,18,20)):
         # La distancia al inicio del dedo evita contar un puño como mano abierta.
         first=p[pip]-p[mcp]; second=p[tip]-p[pip]
         lengths=float(np.linalg.norm(first)*np.linalg.norm(second))
         straight=lengths>1e-9 and float(first@second)/lengths>=0.5
-        extended+=straight and np.linalg.norm(p[tip]-p[mcp])>1.35*np.linalg.norm(first)
-    if not near: return None
-    if above: return True if extended>=3 else None
+        length=float(np.linalg.norm(p[tip]-p[mcp]))
+        is_extended=straight and length>1.35*np.linalg.norm(first)
+        extended+=is_extended
+        # Para aceptar una palma más baja exigimos dedos orientados hacia arriba,
+        # no solo dedos extendidos horizontalmente cerca de la cara.
+        if is_extended and p[mcp,1]-p[tip,1]>0.15*length: upwards.append(p[tip])
+    tip=np.median(upwards,axis=0) if len(upwards)>=3 else None
+    tip_rel=float((tip[1]-y0)/height) if tip is not None else None
+    info={'palm_rel':palm_rel,'tip_rel':tip_rel,'extended':int(extended),'upwards':len(upwards),
+          'palm_xy':[float(x) for x in palm],
+          'tip_xy':[float(x) for x in tip] if tip is not None else None}
+    if not near: return None,{**info,'reason':'fuera_lateral'}
+    # Una palma baja también puede corresponder a una mano abierta levantada:
+    # tres dedos hacia arriba deben llegar hasta la zona alta de la cara.
+    if extended>=3 and (palm_rel<raise_ratio or tip_rel is not None and tip_rel<raise_ratio):
+        return True,{**info,'reason':'elevada'}
+    if palm_rel<raise_ratio: return None,{**info,'reason':'dedos_ambiguos'}
     # Banda espacial entre subir y bajar: una mano que tiembla en el límite
     # o se cierra en un puño arriba no demuestra una nueva bajada.
-    if palm[1]>=y0+0.75*height: return False
-    return None
+    if palm_rel>=lower_ratio and (tip_rel is None or tip_rel>=lower_ratio):
+        return False,{**info,'reason':'bajada'}
+    return None,{**info,'reason':'banda_ambigua'}
+
+
+def raised_hand(points, bbox, min_size_px=20.):
+    """Compatibilidad con ejemplos: devuelve únicamente la clasificación de la mano."""
+    return hand_geometry(points,bbox,min_size_px)[0]

@@ -45,7 +45,7 @@ def main(argv=None):
     if not isinstance(source,int) and not Path(source).is_file(): parser.error(f'Entrada inexistente: {source}')
     if not args.headless and sys.platform.startswith('linux') and not (os.environ.get('DISPLAY') or os.environ.get('WAYLAND_DISPLAY')):
         parser.error('No hay sesión gráfica. Utiliza --headless para diagnóstico.')
-    vision=None; emotion=None; capture=None
+    vision=None; emotion=None; capture=None; emotion_failure=None
     obs=None; expression=None; frame=None; user_id=0
     af=AttentionFilter(config); hand=HandEdge(config)
     rows=[]; expressions=[]; events=[]; errors=[]; ui_latencies=[]
@@ -64,7 +64,8 @@ def main(argv=None):
             if emotion: emotion.receive()
             if vision.error: raise RuntimeError(f'Visión: {vision.error}')
             if emotion and emotion.error:
-                errors.append(f'Expresión: {emotion.error}'); emotion.close(); emotion=None
+                emotion_failure=f'Expresión: {emotion.error}'
+                errors.append(emotion_failure); emotion.close(); emotion=None
             if vision.ready and (emotion is None or emotion.ready): break
             time.sleep(0.02)
         else: raise RuntimeError('Los modelos no se inicializaron en 60 segundos')
@@ -101,6 +102,7 @@ def main(argv=None):
                 if emotion.error:
                     message=f'Expresión: {emotion.error}'
                     if message not in errors: errors.append(message)
+                    emotion_failure=message
                     emotion.close(); emotion=None; expression=None
             status,reason=af.update(obs,now)
             # Una expresión de otra sesión, caducada o sin cara actual no decide
@@ -120,10 +122,19 @@ def main(argv=None):
                     event['session']=user_id; print(json.dumps(event,ensure_ascii=False),flush=True)
                 events.extend(dialogue.events); dialogue.events.clear()
             sound.poll()
-            runtime_error=vision.error or (emotion.error if emotion else None) or capture.error or sound.error
+            # La lista errors es un historial para el registro. El panel solo
+            # muestra fallos actuales: un error puntual no debe quedar como activo.
+            obs_error=(obs.reason if obs and obs.reason.startswith('error_vision')
+                       and 0<=now-obs.time_s<=config.stale_s else None)
+            exp_error=(f'Expresión: {expression.error}' if expression and expression.error
+                       and 0<=now-expression.time_s<=config.emotion_stale_s else None)
+            runtime_error=vision.error or emotion_failure or capture.error or sound.error or obs_error or exp_error
             if runtime_error and runtime_error not in errors: errors.append(runtime_error)
             if frame is not None and not args.headless:
-                view=render(frame,obs,status,reason,dialogue,fresh_exp,runtime_error or (errors[-1] if errors else None),
+                # No presentar puntos ni clasificación de mano si la observación
+                # ha caducado: podrían pertenecer a una posición anterior.
+                visible_obs=obs if obs and 0<=now-obs.time_s<=config.stale_s else None
+                view=render(frame,visible_obs,status,reason,dialogue,fresh_exp,runtime_error,
                             hand_ready=hand.armed)
                 cv2.imshow('P2 - Tutor visual',view)
                 key=cv2.waitKey(1)&0xff
